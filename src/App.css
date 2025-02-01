@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  font-family: "inter", Arial, serif, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.challenge-card {
+  padding: 1rem;
+  background-color: blue;
+  border-radius: 10px;
+}
+
+.challenge-card > img {
+  width: 70%;
+  height: 70%;
+}
+
+.challenge-card-content {
+  margin: 0 14px;
+}
+
+.challenge-card-container {
+  margin: 20px 8px;
+  width: 360px;
+  border: 1px solid hwb(0 83% 14%);
+  border-radius: 8px;
+  padding: 10px;
+  transition: box-shadow 0.3s;
+}
+.challenge-card-container:hover {
+  box-shadow: 1.5px 1.5px 1.5px darkgray;
+  transform: translateY(-1.2px);
+}
+
+.challenges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+/* skill set */

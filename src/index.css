@@ -1,0 +1,28 @@
+/* src/index.css */
+@import "tailwindcss/preflight";
+@tailwind utilities;
+
+input,
+textarea {
+  outline: none;
+}
+
+.Admin-side-complession-box p::before {
+  content: ".";
+  font-size: 55px;
+  color: green;
+  margin-right: 8px;
+}
+.challenge-count-container::before {
+  content: "";
+  width: 5px;
+  border-radius: 12px;
+  padding: 1px;
+  background-color: #2b71f0;
+  height: 50%;
+  position: absolute;
+}
+.challenge-count-container {
+  padding: 15px;
+  border: 1px solid hsl(0, 10%, 30%);
+}
