@@ -42,9 +42,9 @@ function App() {
         <Route
           path="*"
           element={
-            <div className="bg-gray-100 h-[100vh] flex flex-col p-40 items-center">
+            <div className="bg-gray-100 h-[100vh] flex flex-col p-42 items-center">
               <h1 className="text-center text-3xl  font-bold">
-                404 - Page Not Found Return To Home Page .
+                404 - Page Not Found Return To Home page .
               </h1>
               <HomeButton />
             </div>
