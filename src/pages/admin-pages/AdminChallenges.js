@@ -3,7 +3,7 @@ import SideBar from "../../components/dashboard-components/SideBar";
 import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import NewChallengeCard from "../../components/NewChallengeCard";
 import ChallengeCount from "../../components/dashboard-components/ChallengeCount";
-import challengeCountData from "../../assets/data-infor/ChallengecountData";
+import challengeCountData from "../../asset/data-infor/ChallengecountData";
 import Pagination from "../../components/dashboard-components/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

@@ -1,4 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//home page
+import { Navbar } from "./components/Navbar";
+import { Homepage } from "./components/Homepage";
+import { Challenge } from "./components/Challenges";
+import { AboutUs } from "./components/AboutUs";
+import { Institution } from "./components/Institution";
+import { JoinProgram } from "./components/JoinProgram";
+import { ContactForm } from "./components/ContactForm";
+//
 import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
 import AdminHomePages from "./pages/admin-pages/AdminHomePages";
 import AdminChallenge from "./pages/admin-pages/AdminChallenges";
@@ -10,11 +19,13 @@ import TalentHomePage from "./pages/talent-pages/TalentHomePages";
 import TalentChallenge from "./pages/talent-pages/TalentChallenges";
 import TalentCommunity from "./pages/talent-pages/TalentCommunity";
 import TalentChallengeDetail from "./pages/talent-pages/TalentChallengeDetail";
-import HomeButton from "./assets/404";
+import HomeButton from "./asset/404";
+import Footer from "./components/home/Footer";
 //
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/admin" element={<AdminHomePages />} />
         <Route path="/admin-challenge" element={<AdminChallenge />} />
@@ -39,20 +50,26 @@ function App() {
           path="/talent-challenge-detail"
           element={<TalentChallengeDetail />}
         />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/Hackatons" element={<Challenge />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/institution" element={<Institution />} />
+        <Route path="/join" element={<JoinProgram />} />
+        <Route path="/contact" element={<ContactForm />} />
         <Route
           path="*"
           element={
             <div className="bg-gray-100 h-[100vh] flex flex-col p-42 items-center">
               <h1 className="text-center text-3xl  font-bold">
-                404 - Page Not Found Return To Home page .
+                404 - Page Not Found Return To Home Page .
               </h1>
               <HomeButton />
             </div>
           }
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }
-
 export default App;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SideBar from "../../components/dashboard-components/SideBar";
 import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import AdminKeyInstructionsBox from "../../components/dashboard-components/AdminKeyInstructionsBox";
-import ChallengeDetailData from "../../assets/data-infor/ChallengeDetailData";
+import ChallengeDetailData from "../../asset/data-infor/ChallengeDetailData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,

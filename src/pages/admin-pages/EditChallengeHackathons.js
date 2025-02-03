@@ -3,7 +3,7 @@ import SideBar from "../../components/dashboard-components/SideBar";
 import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import ChallengeDetailData from "../../assets/data-infor/ChallengeDetailData";
+import ChallengeDetailData from "../../asset/data-infor/ChallengeDetailData";
 const EditChallengeHackathons = () => {
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
