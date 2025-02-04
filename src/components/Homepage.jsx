@@ -1,6 +1,8 @@
+import { Navbar } from "./Navbar";
 import Hero from "./home/Hero";
 import Stats from "./home/Stats";
 import SkillsLayout from "./home/SkillsLayout";
+
 import Challenges from "./home/Challenges";
 import Skills from "./home/Skills";
 import Testimonials from "./home/Testimonials";
@@ -11,6 +13,7 @@ import Footer from "./home/Footer";
 export const Homepage = () => {
   return (
     <div>
+      <Navbar />
       <Hero />
       <Stats />
       <SkillsLayout />

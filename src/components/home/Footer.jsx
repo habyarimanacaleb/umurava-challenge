@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import facebook from "../../assets/facebook1.png";
 import gmail from "../../assets/gmail.png";
 import linkedin from "../../assets/linkedin.png";
@@ -64,11 +66,22 @@ const Footer = () => {
           {/* Quick Links Section */}
           <div>
             <p className="font-bold">Quick Links</p>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>Home</li>
-              <li>Program</li>
-              <li>About</li>
-              <li>Contact Us</li>
+            <ul className="mt-4 space-y-2 text-sm ">
+              <Link to="/">
+                {" "}
+                <li>Home</li>{" "}
+              </Link>
+              <Link to="/Hackatons">
+                {" "}
+                <li>Program</li>
+              </Link>
+              <Link to="/about">
+                <li>About</li>{" "}
+              </Link>
+              <Link to="/contact">
+                {" "}
+                <li>Contact Us</li>
+              </Link>
             </ul>
           </div>
 

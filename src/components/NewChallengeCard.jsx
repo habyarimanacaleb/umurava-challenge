@@ -76,7 +76,7 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
             {/* Image Section */}
             <div className="relative">
               <img
-                src={`${process.env.PUBLIC_URL}/images/dsd.jpg`}
+                src={`${process.env.PUBLIC_URL}/images/dsd copy.jpg`}
                 alt={challenge.title}
                 className="w-full h-44 object-cover rounded-t-lg p-2"
                 style={{ borderRadius: "14px" }}
