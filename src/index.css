@@ -7,22 +7,20 @@ textarea {
   outline: none;
 }
 
-.Admin-side-complession-box p::before {
-  content: ".";
-  font-size: 55px;
-  color: green;
-  margin-right: 8px;
+.challenge-count-container {
+  padding: 15px;
+  border: 1px solid hsl(0, 10%, 30%);
+  position: relative; /* Ensure relative positioning */
 }
+
 .challenge-count-container::before {
   content: "";
   width: 5px;
   border-radius: 12px;
-  padding: 1px;
   background-color: #2b71f0;
-  height: 50%;
+  height: 50px;
   position: absolute;
-}
-.challenge-count-container {
-  padding: 15px;
-  border: 1px solid hsl(0, 10%, 30%);
+  left: 0; /* Make sure it appears inside the container */
+  top: 50%; /* Align it vertically */
+  transform: translateY(-50%);
 }

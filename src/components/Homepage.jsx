@@ -1,4 +1,4 @@
-import { Navbar } from "./Navbar";
+// import { Navbar } from "./Navbar";
 import Hero from "./home/Hero";
 import Stats from "./home/Stats";
 import SkillsLayout from "./home/SkillsLayout";
@@ -8,12 +8,12 @@ import Skills from "./home/Skills";
 import Testimonials from "./home/Testimonials";
 import Start from "./home/Start";
 import Career from "./home/Career";
-import Footer from "./home/Footer";
+// import Footer from "./home/Footer";
 
 export const Homepage = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Hero />
       <Stats />
       <SkillsLayout />
@@ -22,7 +22,7 @@ export const Homepage = () => {
       <Testimonials />
       <Start />
       <Career />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

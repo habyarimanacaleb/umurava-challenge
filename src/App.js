@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 //home page
 import { Navbar } from "./components/Navbar";
 import { Homepage } from "./components/Homepage";
@@ -21,10 +26,19 @@ import TalentCommunity from "./pages/talent-pages/TalentCommunity";
 import TalentChallengeDetail from "./pages/talent-pages/TalentChallengeDetail";
 import HomeButton from "./asset/404";
 import Footer from "./components/home/Footer";
-//
 function App() {
   return (
     <Router>
+      <MainContent />
+    </Router>
+  );
+}
+function MainContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+  return (
+    <>
+      {!isAdminRoute && <Navbar />}
       <Routes>
         <Route path="/admin" element={<AdminHomePages />} />
         <Route path="/admin-challenge" element={<AdminChallenge />} />
@@ -41,7 +55,7 @@ function App() {
           path="/admin-edit-challenge"
           element={<EditChallengeHackathons />}
         />
-        {/* //// talent dashboard routes*/}
+        {/* Talent dashboard routes */}
         <Route path="/talent" element={<TalentHomePage />} />
         <Route path="/talent-challenge" element={<TalentChallenge />} />
         <Route path="/talent-community" element={<TalentCommunity />} />
@@ -49,25 +63,28 @@ function App() {
           path="/talent-challenge-detail"
           element={<TalentChallengeDetail />}
         />
+        {/* Main Routes */}
         <Route path="/" element={<Homepage />} />
         <Route path="/Hackatons" element={<Challenge />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/institution" element={<Institution />} />
         <Route path="/join" element={<Join />} />
         <Route path="/contact" element={<Contact />} />
+        {/* 404 Page */}
         <Route
           path="*"
           element={
             <div className="bg-gray-100 h-[100vh] flex flex-col p-42 items-center">
-              <h1 className="text-center text-3xl  font-bold">
-                404 - Page Not Found Return To Home Page .
+              <h1 className="text-center text-3xl font-bold">
+                404 - Page Not Found. Return To Home Page.
               </h1>
               <HomeButton />
             </div>
           }
         />
       </Routes>
-    </Router>
+      {!isAdminRoute && <Footer />}
+    </>
   );
 }
 export default App;

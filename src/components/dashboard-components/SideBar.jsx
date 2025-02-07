@@ -10,15 +10,17 @@ import {
   faUserFriends,
   faNoteSticky,
 } from "@fortawesome/free-solid-svg-icons";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons"; // Correct library
-
+import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import UserAccount from "./UserAccount";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
+  const navigate = useNavigate();
+
   const onLogout = () => {
-    // Logout logic here
     console.log("Logout");
   };
+
   return (
     <div className="bg-blue-500 min-h-[100vh]">
       <div
@@ -54,21 +56,18 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
         <div className="px-2 flex-grow">
           {/* Menu Items */}
           {[
-            { icon: faHome, label: "Dashboard", path: ["/admin", "/talent"] },
+            { icon: faHome, label: "Dashboard", path: "/admin" },
             {
               icon: faNoteSticky,
               label: "Challenges & Hackathon",
-              path: ["/admin/challenge", "/talent/challenge"],
+              path: "/admin-challenge",
             },
-            {
-              icon: faUsers,
-              label: "Community",
-              path: ["/admin/community", "/talent/community"],
-            },
+            { icon: faUsers, label: "Community", path: "/admin-community" },
           ].map((item, index) => (
             <div
               key={index}
               className="flex items-center space-x-2 hover:bg-white hover:text-blue-500 p-2 rounded-md cursor-pointer"
+              onClick={() => navigate(item.path)} // Navigate on click
             >
               <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
               {isSidebarExpanded && (
@@ -86,13 +85,18 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
           {/* Settings Options */}
           <div className="flex flex-col space-y-2">
             {[
-              { icon: faCog, label: "Settings" },
-              { icon: faQuestionCircle, label: "Help Center" },
-              { icon: faUserFriends, label: "Refer Family & Friends" },
+              { icon: faCog, label: "Settings", path: "/settings" },
+              { icon: faQuestionCircle, label: "Help Center", path: "/help" },
+              {
+                icon: faUserFriends,
+                label: "Refer Family & Friends",
+                path: "/refer",
+              },
             ].map((item, index) => (
               <div
                 key={index}
                 className="flex items-center space-x-2 hover:bg-white hover:text-blue-500 p-2 rounded-md cursor-pointer"
+                onClick={() => navigate(item.path)} // Navigate on click
               >
                 <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
                 {isSidebarExpanded && (
@@ -102,21 +106,19 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
             ))}
           </div>
 
-          {/* User Account */}
+          {/* User Account & Logout */}
           <div className="mt-4 mb-4 flex">
             {isSidebarExpanded && (
               <UserAccount isSidebarExpanded={isSidebarExpanded} />
             )}
-            {/* Logout Button */}
             <button
               onClick={onLogout}
-              className=" cursor-pointer hover:transform-flat transition-300"
+              className="cursor-pointer hover:transform-flat transition-300"
             >
               <FontAwesomeIcon
                 className={`w-4 h-4 ${isSidebarExpanded ? "ml-1" : "ml-3"}`}
                 icon={faSignOutAlt}
                 title="Logout"
-                titleId="logout"
               />
             </button>
           </div>

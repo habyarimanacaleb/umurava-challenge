@@ -12,7 +12,6 @@ const ChallengeCount = ({ label, count, icon }) => {
   const handleBlur = () => {
     setIsFocused(false);
   };
-
   return (
     <div
       tabIndex={0} // Makes the container focusable
@@ -20,7 +19,7 @@ const ChallengeCount = ({ label, count, icon }) => {
       onBlur={handleBlur}
       className={`challenge-count-container ${
         isFocused ? "bg-blue-200" : "bg-gray-200"
-      } rounded-md py-2 px-2 w-full sm:w-1/2 md:w-1/3 lg:w-[18%] flex items-center justify-between font-sans space-x-2 outline-none`}
+      } rounded-md w-full sm:w-1/2 md:w-1/3 lg:w-[18%] flex items-center justify-between font-sans outline-none`}
     >
       {/* Icon */}
       <FontAwesomeIcon icon={icon} className="text-md text-blue-500 pl-2" />
