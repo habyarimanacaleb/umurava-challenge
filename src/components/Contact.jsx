@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar } from "./Navbar";
+import { Navbar } from "./NavBar";
 import { ContactForm } from "../components/ContactForm";
 export const Contact = () => {
   return (

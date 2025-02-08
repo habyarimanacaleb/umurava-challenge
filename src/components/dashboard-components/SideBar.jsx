@@ -83,8 +83,21 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
 
         {/* Sidebar Navigation */}
         <div className="px-2 flex-grow">
+          {/* Menu Items */}
+          {[
+            { icon: faHome, label: "Dashboard", path: "/admin" },
+            {
+              icon: faNoteSticky,
+              label: "Challenges & Hackathon",
+              path: "/admin-challenge",
+            },
+            { icon: faUsers, label: "Community", path: "/talent-community" },
+          ].map((item, index) => (
+            <div
+
           {sidebarLinks.map((item, index) => (
             <NavLink
+
               key={index}
               to={item.path}
               className={({ isActive }) =>
