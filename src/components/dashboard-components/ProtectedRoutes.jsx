@@ -1,14 +1,13 @@
-// ProtectedRoute.js (Example)
+// ProtectedRoute.js
 import { Navigate } from "react-router-dom";
-import { useUser } from "../../App";
+import { useUser } from "../../context/UserContext";
 
-export const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { userRole } = useUser(); // Use context to get userRole
+export const ProtectedRoute = ({ allowedRoles, children }) => {
+  const { userRole } = useUser();
 
-  // Check if userRole is in allowedRoles
   if (!allowedRoles.includes(userRole)) {
-    return <Navigate to="/" />; // Redirect to homepage if not authorized
+    return <Navigate to="/" />;
   }
 
-  return children; // Allow access to protected route
+  return children;
 };

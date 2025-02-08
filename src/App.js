@@ -8,6 +8,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import { UserProvider } from "./context/UserContext";
 import { UserContext } from "./context/UserContext";
 import { Navbar } from "./components/Navbar";
 import Footer from "./components/home/Footer";
@@ -41,11 +42,11 @@ function App() {
   const userRole = currentUser?.role || "guest"; // Default to "guest"
 
   return (
-    <UserContext.Provider value={{ userRole }}>
+    <UserProvider value={{ userRole }}>
       <Router>
         <MainContent userRole={userRole} />
       </Router>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 
