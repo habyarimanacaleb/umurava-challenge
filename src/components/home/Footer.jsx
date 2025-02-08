@@ -24,18 +24,18 @@ const Footer = () => {
 
           {/* Social Media Icons */}
           <div className="flex space-x-4">
-            <a href="#" className="text-white hover:text-blue-400 transition">
+            <span href="#" className="text-white hover:text-blue-400 transition">
               <img src={facebook} alt="facebook.logo" className="w-10 h-10" />
-            </a>
-            <a href="#" className="text-white hover:text-blue-400 transition">
+            </span>
+            <span className="text-white hover:text-blue-400 transition">
               <img src={gmail} alt="gmail logo" className="w-10 h-10" />
-            </a>
-            <a href="#" className="text-white hover:text-blue-400 transition">
+            </span>
+            <span className="text-white hover:text-blue-400 transition">
               <img src={linkedin} alt="linkedin logo" className="w-10 h-10" />
-            </a>
-            <a href="#" className="text-white hover:text-blue-400 transition">
+            </span>
+            <span  className="text-white hover:text-blue-400 transition">
               <img src={youtube} alt="youtube logo" className="w-10 h-10" />
-            </a>
+            </span>
           </div>
         </div>
 

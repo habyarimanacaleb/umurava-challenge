@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -15,7 +15,7 @@ import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import UserAccount from "./UserAccount";
 
 const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
-  const navigate = useNavigate();
+  
 
   const onLogout = () => {
     const confirmLogout = window.confirm("Do you want to sign out?");
