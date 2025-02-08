@@ -2,10 +2,10 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useLocation,
+  
 } from "react-router-dom";
 //home page
-import { Navbar } from "./components/Navbar";
+
 import { Homepage } from "./components/Homepage";
 import { Challenge } from "./components/Challenges";
 import { AboutUs } from "./components/AboutUs";
@@ -17,15 +17,15 @@ import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons
 import AdminHomePages from "./pages/admin-pages/AdminHomePages";
 import AdminChallenge from "./pages/admin-pages/AdminChallenges";
 import AdminChallengeDetail from "./pages/admin-pages/AdminChallengeDetail";
-import AdminCommunity from "./pages/admin-pages/AdminCommunity";
+
 import CreateNewChallenge from "./components/dashboard-components/CreateNewChallenge";
 // talent pages
 import TalentHomePage from "./pages/talent-pages/TalentHomePages";
 import TalentChallenge from "./pages/talent-pages/TalentChallenges";
-import TalentCommunity from "./pages/talent-pages/TalentCommunity";
+import TalentCommunity from './pages/talent-pages/TalentCommunity'
 import TalentChallengeDetail from "./pages/talent-pages/TalentChallengeDetail";
 import HomeButton from "./asset/404";
-import Footer from "./components/home/Footer";
+
 function App() {
   return (
     <Router>
@@ -34,15 +34,15 @@ function App() {
   );
 }
 function MainContent() {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/admin");
+  
+  
   return (
     <>
-      {!isAdminRoute && <Navbar />}
+      
       <Routes>
         <Route path="/admin" element={<AdminHomePages />} />
         <Route path="/admin-challenge" element={<AdminChallenge />} />
-        <Route path="/admin-community" element={<AdminCommunity />} />
+        
         <Route
           path="/admin-create-challenge"
           element={<CreateNewChallenge />}
@@ -83,7 +83,7 @@ function MainContent() {
           }
         />
       </Routes>
-      {!isAdminRoute && <Footer />}
+      
     </>
   );
 }

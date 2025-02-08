@@ -11,6 +11,7 @@
     "@tailwindcss/postcss": "^4.0.0",
     "cra-template": "1.2.0",
     "css-loader": "^7.1.2",
+    "lucide-react": "^0.475.0",
     "postcss-loader": "^8.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

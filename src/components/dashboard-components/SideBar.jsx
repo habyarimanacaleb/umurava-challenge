@@ -62,7 +62,7 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
               label: "Challenges & Hackathon",
               path: "/admin-challenge",
             },
-            { icon: faUsers, label: "Community", path: "/admin-community" },
+            { icon: faUsers, label: "Community", path: "/talent-community" },
           ].map((item, index) => (
             <div
               key={index}
