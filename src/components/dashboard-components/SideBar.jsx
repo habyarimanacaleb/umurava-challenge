@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -12,14 +13,42 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import UserAccount from "./UserAccount";
-import { useNavigate } from "react-router-dom";
 
-const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
+const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
   const navigate = useNavigate();
 
   const onLogout = () => {
-    console.log("Logout");
+    const confirmLogout = window.confirm("Do you want to sign out?");
+    if (confirmLogout) {
+      console.log("User logged out");
+      // Clear user session (example: remove token from localStorage)
+      localStorage.removeItem("userRole");
+      localStorage.removeItem("authToken");
+      window.location.href = "/login"; // Redirect to login page
+    }
   };
+
+  // Define sidebar links based on user role
+  const sidebarLinks =
+    userRole === "admin"
+      ? [
+          { icon: faHome, label: "Dashboard", path: "/admin" },
+          {
+            icon: faNoteSticky,
+            label: "Challenges & Hackathon",
+            path: "/admin-challenge",
+          },
+          { icon: faUsers, label: "Community", path: "/admin-community" },
+        ]
+      : [
+          { icon: faHome, label: "Dashboard", path: "/talent" },
+          {
+            icon: faNoteSticky,
+            label: "Challenges & Hackathon",
+            path: "/talent-challenge",
+          },
+          { icon: faUsers, label: "Community", path: "/talent-community" },
+        ];
 
   return (
     <div className="bg-blue-500 min-h-[100vh]">
@@ -52,28 +81,25 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
           />
         </button>
 
-        {/* Sidebar Content */}
+        {/* Sidebar Navigation */}
         <div className="px-2 flex-grow">
-          {/* Menu Items */}
-          {[
-            { icon: faHome, label: "Dashboard", path: "/admin" },
-            {
-              icon: faNoteSticky,
-              label: "Challenges & Hackathon",
-              path: "/admin-challenge",
-            },
-            { icon: faUsers, label: "Community", path: "/admin-community" },
-          ].map((item, index) => (
-            <div
+          {sidebarLinks.map((item, index) => (
+            <NavLink
               key={index}
-              className="flex items-center space-x-2 hover:bg-white hover:text-blue-500 p-2 rounded-md cursor-pointer"
-              onClick={() => navigate(item.path)} // Navigate on click
+              to={item.path}
+              className={({ isActive }) =>
+                `flex items-center space-x-2 p-2 rounded-md cursor-pointer transition-all ${
+                  isActive
+                    ? "bg-white text-blue-500 font-bold"
+                    : "hover:text-white"
+                }`
+              }
             >
               <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
               {isSidebarExpanded && (
                 <span className="text-sm">{item.label}</span>
               )}
-            </div>
+            </NavLink>
           ))}
         </div>
 
@@ -82,29 +108,25 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar }) => {
 
         {/* Settings & User Section */}
         <div className="settings-container px-2">
-          {/* Settings Options */}
-          <div className="flex flex-col space-y-2">
-            {[
-              { icon: faCog, label: "Settings", path: "/settings" },
-              { icon: faQuestionCircle, label: "Help Center", path: "/help" },
-              {
-                icon: faUserFriends,
-                label: "Refer Family & Friends",
-                path: "/refer",
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center space-x-2 hover:bg-white hover:text-blue-500 p-2 rounded-md cursor-pointer"
-                onClick={() => navigate(item.path)} // Navigate on click
-              >
-                <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
-                {isSidebarExpanded && (
-                  <span className="text-sm">{item.label}</span>
-                )}
-              </div>
-            ))}
-          </div>
+          {[
+            { icon: faCog, label: "Settings", path: "/settings" },
+            { icon: faQuestionCircle, label: "Help Center" },
+            {
+              icon: faUserFriends,
+              label: "Refer Family & Friends",
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              to={item.path}
+              className="flex items-center space-x-2 p-2 rounded-md cursor-pointer transition-all text-white"
+            >
+              <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
+              {isSidebarExpanded && (
+                <span className="text-sm">{item.label}</span>
+              )}
+            </div>
+          ))}
 
           {/* User Account & Logout */}
           <div className="mt-4 mb-4 flex">

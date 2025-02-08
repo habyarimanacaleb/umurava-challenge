@@ -4,7 +4,9 @@ import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import ChallengeDetailData from "../../asset/data-infor/ChallengeDetailData";
+import { useUser } from "../../App";
 const EditChallengeHackathons = () => {
+  const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => {
@@ -44,14 +46,20 @@ const EditChallengeHackathons = () => {
     console.log("Challenge data submitted:", challengeData);
   };
 
-  document.querySelector("title").style.backgroundColor = "red";
+  if (!userRole) return null; // Prevents errors
   return (
     <div className="flex h-full">
       {/* Sidebar */}
-      <SideBar
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
-      />
+      {userRole && (
+        <SideBar
+          isSidebarExpanded={isSidebarExpanded}
+          userRole={userRole}
+          toggleSidebar={toggleSidebar}
+          className={`${
+            isSidebarExpanded ? "w-64" : "w-16"
+          } fixed z-10 transition-all duration-300 lg:relative`}
+        />
+      )}
 
       {/* Main Content */}
       <div className="flex-1 transition-all duration-300 bg-gray-200">

@@ -4,21 +4,31 @@ import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import NewChallengeCard from "../../components/NewChallengeCard";
 import ChallengeOverview from "../../components/dashboard-components/ChallengeOverview";
 import { faStickyNote, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../../App";
 
 const Dashboard = () => {
+  const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
 
+  if (!userRole) return null; // Prevents errors
+
   return (
     <div className="flex" style={{ height: "100%" }}>
       {/* Sidebar */}
-      <SideBar
-        isSidebarExpanded={isSidebarExpanded}
-        toggleSidebar={toggleSidebar}
-      />
+      {userRole && (
+        <SideBar
+          isSidebarExpanded={isSidebarExpanded}
+          userRole={userRole}
+          toggleSidebar={toggleSidebar}
+          className={`${
+            isSidebarExpanded ? "w-64" : "w-16"
+          } fixed z-10 transition-all duration-300 lg:relative`}
+        />
+      )}
       {/* Main Content */}
       <div className="flex-1 transition-all duration-300">
         <TopNavbar />
@@ -35,7 +45,7 @@ const Dashboard = () => {
           </div>
 
           {/* Challenges Overview */}
-          <div className="flex flex-col space-y-6 p-4">
+          <div className="flex flex-col p-[10px]">
             {/* Overview Section */}
             <div className="challenge-overview grid gap-6 md:grid-cols-2 lg:grid-cols-2">
               <ChallengeOverview
