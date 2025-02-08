@@ -2,12 +2,7 @@
 import { useContext } from "react";
 // App.js (Updated to use UserContext)
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //
 import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
 import AdminHomePages from "./pages/admin-pages/AdminHomePages";
@@ -19,11 +14,6 @@ import { UserContext } from "./context/UserContext";
 import { ProtectedRoute } from "./components/dashboard-components/ProtectedRoutes";
 
 // Admin Pages
-import AdminHomePages from "./pages/admin-pages/AdminHomePages";
-import AdminChallenge from "./pages/admin-pages/AdminChallenges";
-import AdminChallengeDetail from "./pages/admin-pages/AdminChallengeDetail";
-import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
-
 import CreateNewChallenge from "./components/dashboard-components/CreateNewChallenge";
 
 // Talent Pages
@@ -40,6 +30,11 @@ import { Institution } from "./components/Institution";
 import { Join } from "./components/Join";
 import { Contact } from "./components/Contact";
 import HomeButton from "./asset/404";
+
+// Create the useUser hook
+export const useUser = () => {
+  return useContext(UserContext);
+};
 function App() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const userRole = currentUser?.role || "guest"; // Default to "guest"
@@ -53,11 +48,11 @@ function App() {
   );
 }
 
-function MainContent() {     
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/admin");
-  const isTalentRoute = location.pathname.startsWith("/talent");
-  const shouldHideLayout = isAdminRoute || isTalentRoute;
+function MainContent() {
+  // const location = useLocation();
+  // const isAdminRoute = location.pathname.startsWith("/admin");
+  // const isTalentRoute = location.pathname.startsWith("/talent");
+  // const shouldHideLayout = isAdminRoute || isTalentRoute;
 
   return (
     <>

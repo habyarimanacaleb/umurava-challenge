@@ -15,13 +15,10 @@ import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import UserAccount from "./UserAccount";
 
 const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
-  
-
   const onLogout = () => {
     const confirmLogout = window.confirm("Do you want to sign out?");
     if (confirmLogout) {
       console.log("User logged out");
-      // Clear user session (example: remove token from localStorage)
       localStorage.removeItem("userRole");
       localStorage.removeItem("authToken");
       window.location.href = "/login"; // Redirect to login page
@@ -83,21 +80,8 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
 
         {/* Sidebar Navigation */}
         <div className="px-2 flex-grow">
-          {/* Menu Items */}
-          {[
-            { icon: faHome, label: "Dashboard", path: "/admin" },
-            {
-              icon: faNoteSticky,
-              label: "Challenges & Hackathon",
-              path: "/admin-challenge",
-            },
-            { icon: faUsers, label: "Community", path: "/talent-community" },
-          ].map((item, index) => (
-            <div
-
           {sidebarLinks.map((item, index) => (
             <NavLink
-
               key={index}
               to={item.path}
               className={({ isActive }) =>
@@ -124,12 +108,9 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
           {[
             { icon: faCog, label: "Settings", path: "/settings" },
             { icon: faQuestionCircle, label: "Help Center" },
-            {
-              icon: faUserFriends,
-              label: "Refer Family & Friends",
-            },
+            { icon: faUserFriends, label: "Refer Family & Friends" },
           ].map((item, index) => (
-            <div
+            <NavLink
               key={index}
               to={item.path}
               className="flex items-center space-x-2 p-2 rounded-md cursor-pointer transition-all text-white"
@@ -138,7 +119,7 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
               {isSidebarExpanded && (
                 <span className="text-sm">{item.label}</span>
               )}
-            </div>
+            </NavLink>
           ))}
 
           {/* User Account & Logout */}
@@ -148,7 +129,7 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
             )}
             <button
               onClick={onLogout}
-              className="cursor-pointer hover:transform-flat transition-300"
+              className="cursor-pointer transition-300"
             >
               <FontAwesomeIcon
                 className={`w-4 h-4 ${isSidebarExpanded ? "ml-1" : "ml-3"}`}
