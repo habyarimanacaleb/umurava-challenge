@@ -4,7 +4,6 @@ import Solution from "./aboutUs/Solution";
 import SkillsChallenge from "./aboutUs/SkillsChallenge";
 import Footer from "./home/Footer";
 
-
 export const AboutUs = () => {
   return (
     <div>
@@ -13,7 +12,6 @@ export const AboutUs = () => {
       <Solution />
       <SkillsChallenge />
       <Footer />
-    
     </div>
   );
 };
