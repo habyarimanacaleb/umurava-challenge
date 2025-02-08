@@ -59,6 +59,19 @@ const Footer = () => {
             <img src={gmail} alt="gmail" className="w-10 h-10" />
             <img src={linkedin} alt="linkedin" className="w-10 h-10" />
             <img src={youtube} alt="youtube" className="w-10 h-10" />
+            <span href="#" className="text-white hover:text-blue-400 transition">
+              <img src={facebook} alt="facebook.logo" className="w-10 h-10" />
+            </span>
+            <span className="text-white hover:text-blue-400 transition">
+              <img src={gmail} alt="gmail logo" className="w-10 h-10" />
+            </span>
+            <span className="text-white hover:text-blue-400 transition">
+              <img src={linkedin} alt="linkedin logo" className="w-10 h-10" />
+            </span>
+            <span  className="text-white hover:text-blue-400 transition">
+              <img src={youtube} alt="youtube logo" className="w-10 h-10" />
+            </span>
+
           </div>
         </div>
 

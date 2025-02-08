@@ -4,7 +4,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const ChallengeCard = (props) => {
   return (
-    <div className="relative flex w-full  justify-between bg-white border border-gray-200 rounded-xl p-6 shadow-sm mr-2 my-3">
+    <div className="relative flex w-full  justify-between bg-white border border-gray-200 rounded-xl px-4 py-2.5 shadow-sm mr-2 my-3">
       {/* Icon and Title */}
       <div className="flex items-center">
         <div className="h-12 w-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-500">

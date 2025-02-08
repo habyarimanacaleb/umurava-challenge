@@ -19,13 +19,13 @@ const ChallengeCount = ({ label, count, icon }) => {
       onBlur={handleBlur}
       className={`challenge-count-container ${
         isFocused ? "bg-blue-200" : "bg-gray-200"
-      } rounded-md w-full sm:w-1/2 md:w-1/3 lg:w-[18%] flex items-center justify-between font-sans outline-none`}
+      } rounded-md w-full sm:w-1/2 md:w-1/3 lg:w-[18%] flex items-center justify-between font-[work sans] outline-none`}
     >
       {/* Icon */}
       <FontAwesomeIcon icon={icon} className="text-md text-blue-500 pl-2" />
 
       {/* Label */}
-      <p className="text-gray-800 text-[14px]">{label}</p>
+      <p className="text-gray-800 text-base">{label}</p>
 
       {/* Count */}
       <div

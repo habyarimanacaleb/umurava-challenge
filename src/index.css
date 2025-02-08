@@ -17,8 +17,8 @@ textarea {
   content: "";
   width: 5px;
   border-radius: 12px;
-  background-color: #2b71f0;
-  height: 50px;
+  background-color: hsl(219, 75%, 55%);
+  height: calc(100% - 2px); /* Adjust height dynamically */
   position: absolute;
   left: 0; /* Make sure it appears inside the container */
   top: 50%; /* Align it vertically */

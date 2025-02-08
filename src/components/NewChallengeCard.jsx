@@ -55,11 +55,11 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
   return (
     <div className="p-4">
       <div className=" text-center flex justify-between items-center">
-        <h1 className="text-xl md:text-xl font-bold text-gray-600">
+        <h1 className="text-md font-semibold md:text-xl font-bold ">
           Recent Challenges
         </h1>
         <button className="right-3 text-blue-600 font-inter font-semibold">
-          <span className="text-sm">see more</span>{" "}
+          <span className="text-[12px]">see more</span>
           <FontAwesomeIcon icon={faChevronRight} size="sm" />
         </button>
       </div>

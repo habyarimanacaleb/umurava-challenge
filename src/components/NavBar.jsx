@@ -52,7 +52,7 @@ export const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/Hackatons"
+            to="/Hackathons"
             className={`${
               isActive("/Hackatons") ? "text-blue-500 " : "text-gray-600"
             }  transition-colors duration-300`}
