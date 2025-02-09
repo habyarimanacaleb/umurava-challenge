@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import ChallengeDetailData from "../../asset/data-infor/ChallengeDetailData";
 import { useUser } from "../../App";
+import { useNavigate, useParams } from "react-router-dom";
 const EditChallengeHackathons = () => {
   const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
@@ -45,6 +46,10 @@ const EditChallengeHackathons = () => {
     // Add submit logic here (e.g., API call)
     console.log("Challenge data submitted:", challengeData);
   };
+  //use navidate to suitch to different route
+  const navigate = useNavigate();
+  //get id params
+  const { id } = useParams.id;
 
   if (!userRole) return null; // Prevents errors
   return (
@@ -66,7 +71,12 @@ const EditChallengeHackathons = () => {
         <TopNavbar />
         <hr />
         <div className="flex px-4 py-2">
-          <div className="back flex items-center space-x-2 cursor-pointer">
+          <div
+            onClick={() => {
+              navigate(`/challenge/:${id}`);
+            }}
+            className="back flex items-center space-x-2 cursor-pointer"
+          >
             <FontAwesomeIcon
               icon={faArrowLeft}
               className="bg-gray-300 p-2 rounded-md text-xs"

@@ -14,7 +14,7 @@ const Dashboard = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
 
-  if (!userRole) return null; // Prevents errors
+  // if (!userRole) return null; // Prevents errors
 
   return (
     <div className="flex" style={{ height: "100%" }}>

@@ -19,6 +19,10 @@ export default ChallengeDetailData;
 export const adminChallengeDetailData = [
   {
     id: "1",
+    date: "2024-12-24",
+    prize: "$150",
+    duration: "7days",
+    contact: "talent@umurava.africa",
     title: "Design a Dashboard for Sokofund",
     projectBrief:
       " A Fintech company that is developing a Digital Financial Platformdesigned for businesses and their workforce in Africa is partnering with Umurava to run a Skills Challenge for Product Design. This Fintech Company offers a Payroll Management System to Employers and Embedded Financial services and products to Employees and Gig Workers across Africa",
@@ -32,6 +36,10 @@ export const adminChallengeDetailData = [
   },
   {
     id: "2",
+    date: "2024-12-24",
+    prize: "$150",
+    duration: "7days",
+    contact: "talent@umurava.africa",
     title: "Build an E-commerce Platform",
     projectBrief: "Develop an online store...",
     projectDescription:
