@@ -6,8 +6,16 @@ import {
   faCalendarAlt,
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const AdminKeyInstructionsBox = () => {
+  const navigate = useNavigate();
+  // const { id } = useParams.id;
+  const handleDelete = () => {
+    //Delete challenge logic
+    alert("Challenge deleted!");
+    navigate("/admin");
+  };
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-80">
       {/* Title */}
@@ -57,10 +65,16 @@ const AdminKeyInstructionsBox = () => {
 
       {/* CTA Button */}
       <div className="call-to-action flex space-x-4">
-        <button className="mt-6 w-full bg-red-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+        <button
+          onClick={handleDelete}
+          className="mt-6 w-full bg-red-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+        >
           Delete
         </button>
-        <button className="mt-6 w-full bg-blue-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+        <button
+          onClick={() => navigate("/admin-edit-challenge")}
+          className="mt-6 w-full bg-blue-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+        >
           Edit
         </button>
       </div>

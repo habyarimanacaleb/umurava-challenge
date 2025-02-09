@@ -9,7 +9,7 @@ import {
   faSlidersH,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../../App";
-const CreateNewChallenge = () => {
+const TalentChallengeDetail = () => {
   const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
@@ -166,4 +166,4 @@ const CreateNewChallenge = () => {
   );
 };
 
-export default CreateNewChallenge;
+export default TalentChallengeDetail;

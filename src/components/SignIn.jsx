@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import jwtDecode from "jwt-decode"; // Import jwtDecode
 
 export const SignIn = ({ onSwitchToCreate }) => {
-  const navigate = useNavigate(); // Initialize navigation
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,35 +11,43 @@ export const SignIn = ({ onSwitchToCreate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://umurava-challenge-bn.onrender.com/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://umurava-challenge-bn.onrender.com/api/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
       console.log("API Response:", data); // Debugging
 
       if (response.ok) {
-        const { token, user } = data;
+        const { token } = data;
 
-        if (token && user) {
-          // ✅ Store token and user details, including role
+        if (token) {
+          // ✅ Decode JWT token to extract user details
+          const decodedUser = jwtDecode(token);
+          console.log("Decoded User:", decodedUser); // Debugging
+
+          // ✅ Store token & decoded user info in localStorage
           localStorage.setItem("token", token);
-          localStorage.setItem("user", JSON.stringify({ 
-            name: user.name, 
-            email: user.email, 
-            role: user.role // ✅ Now storing role
-          }));
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              userId: decodedUser.userId,
+              email: decodedUser.email,
+              role: decodedUser.role || "Guest",
+            })
+          );
 
           alert("Login successful!");
-          navigate("/admin"); // Redirect to Admin Dashboard
         } else {
-          alert("Login successful, but user data is missing.");
-          console.error("User data missing in API response:", data);
+          alert("Login successful, but token is missing.");
         }
       } else {
-        alert(data.message);
+        alert(data.message || "Login failed");
       }
     } catch (error) {
       alert("An error occurred");
@@ -72,7 +79,10 @@ export const SignIn = ({ onSwitchToCreate }) => {
 
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -87,7 +97,10 @@ export const SignIn = ({ onSwitchToCreate }) => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <div className="relative">

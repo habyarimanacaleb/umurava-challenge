@@ -7,7 +7,7 @@ import challengeCountData from "../../asset/data-infor/ChallengecountData";
 import Pagination from "../../components/dashboard-components/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../../App";
 
 const AdminChallenges = () => {
@@ -17,9 +17,10 @@ const AdminChallenges = () => {
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
+  // use navigation for routes
+  const navigate = useNavigate();
 
   if (!userRole) return null; // Prevents errors
-
   return (
     <div className="flex" style={{ height: "100%" }}>
       {/* Sidebar */}
@@ -57,14 +58,17 @@ const AdminChallenges = () => {
                 bgColor={challenge.bgColor}
               />
             ))}
-            <Link to="/create">
-              <div className="create-challenge flex items-center p-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200 ease-in-out shadow-md ml-auto">
-                <FontAwesomeIcon icon={faPlus} size="sm" className="pr-2" />
-                <p className="font-sans font-semibold text-sm">
-                  Create New Challenge
-                </p>
-              </div>
-            </Link>
+            <div
+              onClick={() => {
+                navigate("/admin-create-challenge");
+              }}
+              className="create-challenge flex items-center p-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200 ease-in-out shadow-md ml-auto"
+            >
+              <FontAwesomeIcon icon={faPlus} size="sm" className="pr-2" />
+              <p className="font-sans font-semibold text-sm">
+                Create New Challenge
+              </p>
+            </div>
           </div>
 
           {/* Challenge Card */}
