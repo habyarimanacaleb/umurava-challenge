@@ -59,8 +59,8 @@ const Hero = () => {
               />
               {/* Talents Info */}
 
-              <div className="absolute bottom-4 -left-96 bg-white py-3  px-8
-              rounded-full shadow-md flex items-center  lg:flex">
+              <div className="absolute bottom-4 -left-80 lg:left-[-24rem] bg-white py-3  px-8
+              rounded-full shadow-md flex items-center min-w-max">
                 <div className="flex -space-x-2">
                   <img
                     src={user_2}

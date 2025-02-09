@@ -1,6 +1,6 @@
 import { useState } from "react";
-import jwtDecode from "jwt-decode"; // Import jwtDecode
-
+import jwtDecode from "jwt-decode"; // Import jwtDecod
+import { useNavigate } from "react-router-dom"; 
 export const SignIn = ({ onSwitchToCreate }) => {
   const [formData, setFormData] = useState({
     email: "",
@@ -21,10 +21,10 @@ export const SignIn = ({ onSwitchToCreate }) => {
       );
 
       const data = await response.json();
-      console.log("API Response:", data); // Debugging
+      console.log("API Response:", data); 
 
       if (response.ok) {
-        const { token } = data;
+        const { token,user } = data;
 
         if (token) {
           // ✅ Decode JWT token to extract user details
@@ -43,6 +43,20 @@ export const SignIn = ({ onSwitchToCreate }) => {
           );
 
           alert("Login successful!");
+     
+        const { token, user,pageUrl } = data;
+        console.log("Redirecting to:", data.pageUrl);
+        if (token && user) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify({ 
+            name: data.user.userName, 
+            email: data.user.email, 
+            role: data.user.role // ✅ Now storing role
+          }));
+
+          alert("Login successful!");
+          const navigate=useNavigate()
+     navigate(pageUrl)
         } else {
           alert("Login successful, but token is missing.");
         }
