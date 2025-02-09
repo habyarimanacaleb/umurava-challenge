@@ -22,7 +22,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
       if (response.ok) {
      
         const { token, user,pageUrl } = data;
-
+        console.log("Redirecting to:", data.pageUrl);
         if (token && user) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify({ 
