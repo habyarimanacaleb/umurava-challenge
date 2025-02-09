@@ -32,6 +32,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
           }));
 
           alert("Login successful!");
+          const navigate=useNavigate()
      navigate(pageUrl)
         } else {
           alert("Login successful, but user data is missing.");
