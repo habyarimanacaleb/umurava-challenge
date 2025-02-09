@@ -1,4 +1,4 @@
-import { Navbar } from "./Navbar";
+import { Navbar } from "./NavBar";
 import OurStory from "./aboutUs/OurStory";
 import Solution from "./aboutUs/Solution";
 import SkillsChallenge from "./aboutUs/SkillsChallenge";

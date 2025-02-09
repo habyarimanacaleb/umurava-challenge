@@ -2,27 +2,26 @@
 import { useContext } from "react";
 // App.js (Updated to use UserContext)
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import { UserContext } from "./context/UserContext";
-import { Navbar } from "./components/Navbar";
-import Footer from "./components/home/Footer";
-import { ProtectedRoute } from "./components/dashboard-components/ProtectedRoutes";
-// Admin Pages
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//
+import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
 import AdminHomePages from "./pages/admin-pages/AdminHomePages";
 import AdminChallenge from "./pages/admin-pages/AdminChallenges";
 import AdminChallengeDetail from "./pages/admin-pages/AdminChallengeDetail";
-import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
+import { UserProvider } from "./context/UserContext";
+import { UserContext } from "./context/UserContext";
+
+import { ProtectedRoute } from "./components/dashboard-components/ProtectedRoutes";
+
+// Admin Pages
 import CreateNewChallenge from "./components/dashboard-components/CreateNewChallenge";
+
 // Talent Pages
 import TalentHomePage from "./pages/talent-pages/TalentHomePages";
 import TalentChallenge from "./pages/talent-pages/TalentChallenges";
 import TalentChallengeDetail from "./pages/talent-pages/TalentChallengeDetail";
 import TalentCommunity from "./pages/talent-pages/TalentCommunity";
+
 // Public Pages
 import { Homepage } from "./components/Homepage";
 import { Challenge } from "./components/Challenges";
@@ -32,32 +31,31 @@ import { Join } from "./components/Join";
 import { Contact } from "./components/Contact";
 import HomeButton from "./asset/404";
 
+// Create the useUser hook
 export const useUser = () => {
   return useContext(UserContext);
 };
-
 function App() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const userRole = currentUser?.role || "guest"; // Default to "guest"
 
   return (
-    <UserContext.Provider value={{ userRole }}>
+    <UserProvider value={{ userRole }}>
       <Router>
         <MainContent userRole={userRole} />
       </Router>
-    </UserContext.Provider>
+    </UserProvider>
   );
 }
 
 function MainContent() {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith("/admin");
-  const isTalentRoute = location.pathname.startsWith("/talent");
-  const shouldHideLayout = isAdminRoute || isTalentRoute;
+  // const location = useLocation();
+  // const isAdminRoute = location.pathname.startsWith("/admin");
+  // const isTalentRoute = location.pathname.startsWith("/talent");
+  // const shouldHideLayout = isAdminRoute || isTalentRoute;
 
   return (
     <>
-      {!shouldHideLayout && <Navbar />}
       <Routes>
         {/* Admin Routes (Protected) */}
         <Route
@@ -156,7 +154,6 @@ function MainContent() {
           }
         />
       </Routes>
-      {!shouldHideLayout && <Footer />}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Navbar } from "./Navbar";
+import { Navbar } from "./NavBar";
 import Project from "./institution/Project";
 import Offerings from "./institution/Offerings";
 import Companies from "./institution/Companies";
@@ -16,6 +16,7 @@ export const Institution = () => {
       <Integration />
       <CallToAction />
       <Footer />
+     
     </div>
   );
 };
