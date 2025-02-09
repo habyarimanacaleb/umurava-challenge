@@ -17,11 +17,11 @@ export const SignIn = ({ onSwitchToCreate }) => {
       });
 
       const data = await response.json();
-      console.log("API Response:", data); // Debugging
+      console.log("API Response:", data); 
 
       if (response.ok) {
      
-        const { token, user } = data;
+        const { token, user,pageUrl } = data;
 
         if (token && user) {
           localStorage.setItem("token", data.token);
