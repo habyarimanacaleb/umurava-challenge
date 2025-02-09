@@ -1,5 +1,5 @@
 import { useState } from "react";
-import jwtDecode from "jwt-decode"; // Import jwtDecode
+import { jwtDecode } from "jwt-decode"; // Import jwtDecode
 
 export const SignIn = ({ onSwitchToCreate }) => {
   const [formData, setFormData] = useState({
