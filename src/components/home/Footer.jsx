@@ -133,7 +133,7 @@ const Footer = () => {
             </span>
             <span>|</span>
             <span className="hover:underline hover:decoration-sky-500/30">
-              Terms and Conditions
+              Terms and Condition
             </span>
           </div>
         </div>
