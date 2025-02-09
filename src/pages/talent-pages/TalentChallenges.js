@@ -5,7 +5,7 @@ import NewChallengeCard from "../../components/NewChallengeCard";
 import ChallengeCount from "../../components/dashboard-components/ChallengeCount";
 import challengeCountData from "../../asset/data-infor/ChallengecountData";
 import Pagination from "../../components/dashboard-components/Pagination";
-import { useUser } from "../../App";
+import { useUser } from "../../context/UserContext";
 const TalentChallenges = () => {
   const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);

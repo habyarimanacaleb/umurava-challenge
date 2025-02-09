@@ -1,11 +1,11 @@
-// ProtectedRoute.js
 import { Navigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 export const ProtectedRoute = ({ allowedRoles, children }) => {
-  const { userRole } = useUser();
+  const { user } = useUser();
 
-  if (!allowedRoles.includes(userRole)) {
+  // If user is not defined or doesn't have a valid role, redirect to homepage
+  if (!user || !allowedRoles.includes(user.role)) {
     return <Navigate to="/" />;
   }
 

@@ -8,7 +8,7 @@ import Pagination from "../../components/dashboard-components/Pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../App";
+import { useUser } from "../../context/UserContext";
 
 const AdminChallenges = () => {
   const { userRole } = useUser();

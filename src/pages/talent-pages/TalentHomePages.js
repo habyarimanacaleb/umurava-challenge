@@ -5,8 +5,8 @@ import NewChallengeCard from "../../components/NewChallengeCard";
 import TalentChallengeCount from "../../components/dashboard-components/TalentChallengeCount";
 import { faEye, faStickyNote } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useUser } from "../../App";
-const TalentDashboard = () => {
+import { useUser } from "../../context/UserContext";
+const TalentHomePages = () => {
   const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
@@ -81,4 +81,4 @@ const TalentDashboard = () => {
   );
 };
 
-export default TalentDashboard;
+export default TalentHomePages;
