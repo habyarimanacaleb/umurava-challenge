@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { jwtDecode } from "jwt-decode"; // Import jwtDecode
-
 export const SignIn = ({ onSwitchToCreate }) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+
     try {
       const response = await fetch(
         "https://umurava-challenge-bn.onrender.com/api/login",
@@ -27,59 +27,36 @@ export const SignIn = ({ onSwitchToCreate }) => {
       console.log("API Response:", data);
 
       if (response.ok) {
-        const { token, user, pageUrl } = data;
-        console.log("Redirecting to:", data.pageUrl);
+        const { token, user } = data;
         if (token && user) {
-          localStorage.setItem("token", data.token);
+          localStorage.setItem("token", token);
           localStorage.setItem(
             "user",
             JSON.stringify({
-              name: data.user.userName,
-              email: data.user.email,
-              role: data.user.role,
+              name: user.name,
+              email: user.email,
+              role: user.role,
             })
           );
 
           alert("Login successful!");
-
-          navigate(pageUrl);
-          const { token } = data;
-
-          if (token) {
-            // ✅ Decode JWT token to extract user details
-            const decodedUser = jwtDecode(token);
-            console.log("Decoded User:", decodedUser); // Debugging
-
-            // ✅ Store token & decoded user info in localStorage
-            localStorage.setItem("token", token);
-            localStorage.setItem(
-              "user",
-              JSON.stringify({
-                userId: decodedUser.userId,
-                email: decodedUser.email,
-                role: decodedUser.role || "Guest",
-              })
-            );
-
-            alert("Login successful!");
-          } else {
-            alert("Login successful, but token is missing.");
-          }
+          navigate("/admin"); // Redirect after login
         } else {
-          alert(data.message || "Login failed");
+          setError("Login successful, but token is missing.");
         }
-      } // Close the try block here
+      } else {
+        setError(data.message || "Login failed");
+      }
     } catch (error) {
-      alert("An error occurred");
+      setError("An error occurred. Please try again.");
       console.error("Login error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -97,6 +74,8 @@ export const SignIn = ({ onSwitchToCreate }) => {
           </button>
         </div>
 
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -113,6 +92,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
               onChange={handleChange}
               placeholder="Enter your Email"
               className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500"
+              required
             />
           </div>
 
@@ -132,13 +112,14 @@ export const SignIn = ({ onSwitchToCreate }) => {
                 onChange={handleChange}
                 placeholder="Enter your Password"
                 className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500"
+                required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-2 flex items-center px-2 mt-1 text-gray-400"
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? "👁️" : "🙈"}
               </button>
             </div>
           </div>
@@ -146,8 +127,9 @@ export const SignIn = ({ onSwitchToCreate }) => {
           <button
             type="submit"
             className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
       </div>
