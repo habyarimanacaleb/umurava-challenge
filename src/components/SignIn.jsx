@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-
+import { useNavigate } from "react-router-dom"; 
 export const SignIn = ({ onSwitchToCreate }) => {
-  const navigate = useNavigate(); // Initialize navigation
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -25,7 +23,6 @@ export const SignIn = ({ onSwitchToCreate }) => {
         const { token, user } = data;
 
         if (token && user) {
-          // ✅ Store token and user details, including role
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify({ 
             name: data.user.userName, 
@@ -34,7 +31,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
           }));
 
           alert("Login successful!");
-          navigate("/admin"); // Redirect to Admin Dashboard
+       window.location.href = data.pageUrl
         } else {
           alert("Login successful, but user data is missing.");
           console.error("User data missing in API response:", data);
