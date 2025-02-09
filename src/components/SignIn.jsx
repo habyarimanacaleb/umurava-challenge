@@ -1,12 +1,15 @@
 import { useState } from "react";
-import jwtDecode from "jwt-decode"; // Import jwtDecod
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+
+import { jwtDecode } from "jwt-decode"; // Import jwtDecode
+
 export const SignIn = ({ onSwitchToCreate }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,48 +24,51 @@ export const SignIn = ({ onSwitchToCreate }) => {
       );
 
       const data = await response.json();
-      console.log("API Response:", data); 
+      console.log("API Response:", data);
 
       if (response.ok) {
-        const { token,user } = data;
-
-        if (token) {
-          // ✅ Decode JWT token to extract user details
-          const decodedUser = jwtDecode(token);
-          console.log("Decoded User:", decodedUser); // Debugging
-
-          // ✅ Store token & decoded user info in localStorage
-          localStorage.setItem("token", token);
+        const { token, user, pageUrl } = data;
+        console.log("Redirecting to:", data.pageUrl);
+        if (token && user) {
+          localStorage.setItem("token", data.token);
           localStorage.setItem(
             "user",
             JSON.stringify({
-              userId: decodedUser.userId,
-              email: decodedUser.email,
-              role: decodedUser.role || "Guest",
+              name: data.user.userName,
+              email: data.user.email,
+              role: data.user.role,
             })
           );
 
           alert("Login successful!");
-     
-        const { token, user,pageUrl } = data;
-        console.log("Redirecting to:", data.pageUrl);
-        if (token && user) {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("user", JSON.stringify({ 
-            name: data.user.userName, 
-            email: data.user.email, 
-            role: data.user.role // ✅ Now storing role
-          }));
 
-          alert("Login successful!");
-          const navigate=useNavigate()
-     navigate(pageUrl)
+          navigate(pageUrl);
+          const { token } = data;
+
+          if (token) {
+            // ✅ Decode JWT token to extract user details
+            const decodedUser = jwtDecode(token);
+            console.log("Decoded User:", decodedUser); // Debugging
+
+            // ✅ Store token & decoded user info in localStorage
+            localStorage.setItem("token", token);
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                userId: decodedUser.userId,
+                email: decodedUser.email,
+                role: decodedUser.role || "Guest",
+              })
+            );
+
+            alert("Login successful!");
+          } else {
+            alert("Login successful, but token is missing.");
+          }
         } else {
-          alert("Login successful, but token is missing.");
+          alert(data.message || "Login failed");
         }
-      } else {
-        alert(data.message || "Login failed");
-      }
+      } // Close the try block here
     } catch (error) {
       alert("An error occurred");
       console.error("Login error:", error);
