@@ -20,6 +20,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
       console.log("API Response:", data); // Debugging
 
       if (response.ok) {
+        window.location.href = data.pageUrl
         const { token, user } = data;
 
         if (token && user) {
@@ -31,7 +32,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
           }));
 
           alert("Login successful!");
-       window.location.href = data.pageUrl
+     
         } else {
           alert("Login successful, but user data is missing.");
           console.error("User data missing in API response:", data);
