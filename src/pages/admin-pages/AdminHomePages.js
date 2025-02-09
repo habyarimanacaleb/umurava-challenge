@@ -4,7 +4,7 @@ import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import NewChallengeCard from "../../components/NewChallengeCard";
 import ChallengeOverview from "../../components/dashboard-components/ChallengeOverview";
 import { faStickyNote, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../../App";
+import { useUser } from "../../context/UserContext";
 
 const Dashboard = () => {
   const { userRole } = useUser();

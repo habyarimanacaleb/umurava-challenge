@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 export const SignIn = ({ onSwitchToCreate }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -7,6 +8,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useUser(); // ✅ Update global user context
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,17 +32,9 @@ export const SignIn = ({ onSwitchToCreate }) => {
         const { token, user } = data;
         if (token && user) {
           localStorage.setItem("token", token);
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              name: user.name,
-              email: user.email,
-              role: user.role,
-            })
-          );
-
-          alert("Login successful!");
-          navigate("/admin"); // Redirect after login
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          setUser(user);
+          navigate(user.role === "admin" ? "/admin" : "/talent");
         } else {
           setError("Login successful, but token is missing.");
         }
@@ -119,7 +113,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-2 flex items-center px-2 mt-1 text-gray-400"
               >
-                {showPassword ? "👁️" : "🙈"}
+                {showPassword ? "Hide" : "Show"}
               </button>
             </div>
           </div>

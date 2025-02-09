@@ -4,7 +4,7 @@ import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import ChallengeDetailData from "../../asset/data-infor/ChallengeDetailData";
-import { useUser } from "../../App";
+import { useUser } from "../../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 const EditChallengeHackathons = () => {
   const { userRole } = useUser();
