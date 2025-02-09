@@ -149,6 +149,13 @@ export const Navbar = () => {
             >
               Contact Us
             </Link>
+            <Link
+              to="/join"
+              className="px-4 py-1 rounded-full inline-block text-base"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              Join the programm
+            </Link>
           </ul>
         </div>
       </div>

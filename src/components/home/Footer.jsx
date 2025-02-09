@@ -59,18 +59,7 @@ const Footer = () => {
             <img src={gmail} alt="gmail" className="w-10 h-10" />
             <img src={linkedin} alt="linkedin" className="w-10 h-10" />
             <img src={youtube} alt="youtube" className="w-10 h-10" />
-            <span href="#" className="text-white hover:text-blue-400 transition">
-              <img src={facebook} alt="facebook.logo" className="w-10 h-10" />
-            </span>
-            <span className="text-white hover:text-blue-400 transition">
-              <img src={gmail} alt="gmail logo" className="w-10 h-10" />
-            </span>
-            <span className="text-white hover:text-blue-400 transition">
-              <img src={linkedin} alt="linkedin logo" className="w-10 h-10" />
-            </span>
-            <span  className="text-white hover:text-blue-400 transition">
-              <img src={youtube} alt="youtube logo" className="w-10 h-10" />
-            </span>
+        
 
           </div>
         </div>
@@ -118,7 +107,7 @@ const Footer = () => {
                 placeholder="Email"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
-                className="flex-1 px-4 py-2 mb-2 rounded-lg text-black border border-gray-300"
+                className="flex-1 px-4 py-2 mb-2 rounded-lg text-white border border-gray-300"
                 required
               />
               <button
@@ -144,7 +133,7 @@ const Footer = () => {
             </span>
             <span>|</span>
             <span className="hover:underline hover:decoration-sky-500/30">
-              Terms and Conditions
+              Terms and Condition
             </span>
           </div>
         </div>

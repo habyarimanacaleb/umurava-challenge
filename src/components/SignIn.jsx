@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { jwtDecode } from "jwt-decode"; // Import jwtDecode
 
 export const SignIn = ({ onSwitchToCreate }) => {
   const [formData, setFormData] = useState({
@@ -21,24 +20,20 @@ export const SignIn = ({ onSwitchToCreate }) => {
       );
 
       const data = await response.json();
-      console.log("API Response:", data); // Debugging
+      console.log("API Response:", data);
 
       if (response.ok) {
-        const { token } = data;
+        const { token, user } = data;
 
-        if (token) {
-          // ✅ Decode JWT token to extract user details
-          const decodedUser = jwtDecode(token);
-          console.log("Decoded User:", decodedUser); // Debugging
-
-          // ✅ Store token & decoded user info in localStorage
+        if (token && user) {
+          // ✅ Store token and user details, including role
           localStorage.setItem("token", token);
           localStorage.setItem(
             "user",
             JSON.stringify({
-              userId: decodedUser.userId,
-              email: decodedUser.email,
-              role: decodedUser.role || "Guest",
+              name: user.name,
+              email: user.email,
+              role: user.role, // ✅ Now storing role
             })
           );
 
