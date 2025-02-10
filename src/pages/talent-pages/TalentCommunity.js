@@ -5,8 +5,10 @@ import NewChallengeCard from "../../components/NewChallengeCard";
 import ChallengeCount from "../../components/dashboard-components/ChallengeCount";
 import challengeCountData from "../../asset/data-infor/ChallengecountData";
 import Pagination from "../../components/dashboard-components/Pagination";
+import { useUser } from "../../context/UserContext";
 
 const TalentCommunity = () => {
+  const { user } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
   const [showModal, setShowModal] = useState(true); // Modal is visible by default
 
@@ -24,6 +26,8 @@ const TalentCommunity = () => {
     return () => document.body.classList.remove("overflow-hidden");
   }, [showModal]);
 
+  if (!user) return null; // Prevents errors if user is not available
+
   return (
     <div className="relative h-full min-h-screen">
       {/* Darkened Background Overlay */}
@@ -32,16 +36,26 @@ const TalentCommunity = () => {
       )}
 
       {/* Sidebar and Main Content */}
-      <div className={`flex ${showModal ? "opacity-30" : "opacity-100"} transition-opacity duration-300`}>
-        <SideBar isSidebarExpanded={isSidebarExpanded} toggleSidebar={toggleSidebar} />
+      <div
+        className={`flex ${
+          showModal ? "opacity-30" : "opacity-100"
+        } transition-opacity duration-300`}
+      >
+        <SideBar
+          isSidebarExpanded={isSidebarExpanded}
+          toggleSidebar={toggleSidebar}
+        />
 
         <div className="flex-1 transition-all duration-300">
           <TopNavbar />
           <div className="content bg-gray-100 mt-4 pb-4 flex flex-col space-y-4">
             <div className="welcome-text p-4">
-              <h1 className="text-2xl font-semibold text-gray-800">Challenges</h1>
+              <h1 className="text-2xl font-semibold text-gray-800">
+                Challenges
+              </h1>
               <p className="text-gray-600 text-base pt-1">
-                Join a challenge or a hackathon to gain valuable work experience.
+                Join a challenge or a hackathon to gain valuable work
+                experience.
               </p>
             </div>
 
@@ -78,8 +92,12 @@ const TalentCommunity = () => {
             <div className="w-14 h-14 bg-blue-100 flex items-center justify-center rounded-full mx-auto mb-4">
               <span className="text-blue-500 text-3xl">📢</span>
             </div>
-            <h2 className="text-lg font-semibold">Join our WhatsApp community</h2>
-            <p className="text-gray-600 mt-2">Get notified on the latest projects and hackathons</p>
+            <h2 className="text-lg font-semibold">
+              Join our WhatsApp community
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Get notified on the latest projects and hackathons
+            </p>
             <button
               className="bg-blue-600 text-white px-6 py-2 rounded-lg mt-4 hover:bg-blue-700 transition"
               onClick={() => setShowModal(false)}

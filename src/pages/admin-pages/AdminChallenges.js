@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 const AdminChallenges = () => {
-  const { userRole } = useUser();
+  const { user } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => {
@@ -20,20 +20,19 @@ const AdminChallenges = () => {
   // use navigation for routes
   const navigate = useNavigate();
 
-  if (!userRole) return null; // Prevents errors
+  if (!user) return null; // Prevents errors if user is not available
+
   return (
     <div className="flex" style={{ height: "100%" }}>
       {/* Sidebar */}
-      {userRole && (
-        <SideBar
-          isSidebarExpanded={isSidebarExpanded}
-          userRole={userRole}
-          toggleSidebar={toggleSidebar}
-          className={`${
-            isSidebarExpanded ? "w-64" : "w-16"
-          } fixed z-10 transition-all duration-300 lg:relative`}
-        />
-      )}
+      <SideBar
+        isSidebarExpanded={isSidebarExpanded}
+        userRole={user.role}
+        toggleSidebar={toggleSidebar}
+        className={`${
+          isSidebarExpanded ? "w-64" : "w-16"
+        } fixed z-10 transition-all duration-300 lg:relative`}
+      />
 
       {/* Main Content */}
       <div className="flex-1 transition-all duration-300">

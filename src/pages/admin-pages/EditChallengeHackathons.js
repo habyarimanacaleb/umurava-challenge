@@ -3,28 +3,37 @@ import SideBar from "../../components/dashboard-components/SideBar";
 import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
-import ChallengeDetailData from "../../asset/data-infor/ChallengeDetailData";
+import { adminChallengeDetailData } from "../../asset/data-infor/ChallengeDetailData";
 import { useUser } from "../../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
+
 const EditChallengeHackathons = () => {
   const { userRole } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
 
-  // Sample data for the form fields
-  const [challengeData, setChallengeData] = useState(ChallengeDetailData);
+  // Find challenge based on ID
+  const challenge = adminChallengeDetailData.find(
+    (challenge) => challenge.id === id
+  );
 
+  // Initialize form data with the challenge data
+  const [challengeData, setChallengeData] = useState(challenge || {});
   const [projectDescription, setProjectDescription] = useState(
-    challengeData.projectDescription.split(".")
+    challenge ? challenge.projectDescription.split(".") : []
   );
 
   // Sync project description when challenge data changes
   useEffect(() => {
-    setProjectDescription(challengeData.projectDescription.split("."));
-  }, [challengeData.projectDescription]);
+    if (challenge) {
+      setProjectDescription(challenge.projectDescription.split("."));
+    }
+  }, [challenge]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,17 +50,43 @@ const EditChallengeHackathons = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add submit logic here (e.g., API call)
-    console.log("Challenge data submitted:", challengeData);
+    // Prepare data to be sent to the backend
+    const dataToSave = {
+      id: challengeData.id,
+      title: challengeData.title,
+      date: challengeData.date,
+      prize: challengeData.prize,
+      duration: challengeData.duration,
+      contact: challengeData.contact,
+      projectBrief: challengeData.projectBrief,
+      projectDescription: projectDescription.join("."),
+      projectRequirement: challengeData.projectRequirement,
+    };
+
+    try {
+      const response = await fetch("https://your-backend-api.com/challenges", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataToSave),
+      });
+
+      if (response.ok) {
+        console.log("Challenge data saved successfully");
+        navigate(`/challenge/${id}`);
+      } else {
+        console.error("Failed to save challenge data");
+      }
+    } catch (error) {
+      console.error("Error saving challenge data:", error);
+    }
   };
-  //use navidate to suitch to different route
-  const navigate = useNavigate();
-  //get id params
-  const { id } = useParams.id;
 
   if (!userRole) return null; // Prevents errors
+
   return (
     <div className="flex h-full">
       {/* Sidebar */}
@@ -73,7 +108,7 @@ const EditChallengeHackathons = () => {
         <div className="flex px-4 py-2">
           <div
             onClick={() => {
-              navigate(`/challenge/:${id}`);
+              navigate(`/challenge/${id}`);
             }}
             className="back flex items-center space-x-2 cursor-pointer"
           >
@@ -90,7 +125,7 @@ const EditChallengeHackathons = () => {
           </div>
         </div>
         <hr />
-        <div className="new-challenge-form-container md:mx-auto sm:mx-auto lg:w-[500px] sm:w-[90%] md:w-[80%] mt-4 mb-8 bg-white p-3 rounded-lg shadow">
+        <div className="new-challenge-form-container md:mx-auto sm:mx-auto lg:w-[700px] sm:w-[90%] md:w-[80%] mt-4 mb-8 bg-white p-6 rounded-lg shadow">
           <div className="form-heading flex flex-col items-center">
             <h2 className="form-title font-bold text-2xl">
               Edit Challenge Details
@@ -100,7 +135,7 @@ const EditChallengeHackathons = () => {
             </p>
           </div>
           <form onSubmit={handleSubmit}>
-            <div className="form-field mt-2">
+            <div className="form-field mt-4">
               <label className="pb-2" htmlFor="title">
                 Challenge/Hackathon Title
               </label>
@@ -108,16 +143,16 @@ const EditChallengeHackathons = () => {
                 type="text"
                 id="title"
                 name="title"
-                value={challengeData.title}
+                value={challengeData.title || ""}
                 onChange={handleChange}
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter Title"
                 required
               />
             </div>
-            <div className="input-group flex gap-4 mt-2">
+            <div className="input-group flex gap-4 mt-4">
               <div className="sub-input-group flex-1">
-                <div className="form-field mt-2">
+                <div className="form-field mt-4">
                   <label className="pb-2" htmlFor="date">
                     Deadline
                   </label>
@@ -125,13 +160,13 @@ const EditChallengeHackathons = () => {
                     type="date"
                     id="date"
                     name="date"
-                    value={challengeData.date}
+                    value={challengeData.date || ""}
                     onChange={handleChange}
                     className="border-2 border-gray-400 p-3 w-full rounded-md"
                     required
                   />
                 </div>
-                <div className="form-field mt-2">
+                <div className="form-field mt-4">
                   <label className="pb-2" htmlFor="prize">
                     Money Prize
                   </label>
@@ -139,7 +174,7 @@ const EditChallengeHackathons = () => {
                     type="text"
                     id="prize"
                     name="prize"
-                    value={challengeData.prize}
+                    value={challengeData.prize || ""}
                     onChange={handleChange}
                     className="border-2 border-gray-400 p-3 w-full rounded-md"
                     placeholder="Prize"
@@ -148,7 +183,7 @@ const EditChallengeHackathons = () => {
                 </div>
               </div>
               <div className="sub-input-group flex-1">
-                <div className="form-field mt-2">
+                <div className="form-field mt-4">
                   <label className="pb-2" htmlFor="duration">
                     Duration
                   </label>
@@ -156,14 +191,14 @@ const EditChallengeHackathons = () => {
                     type="text"
                     id="duration"
                     name="duration"
-                    value={challengeData.duration}
+                    value={challengeData.duration || ""}
                     onChange={handleChange}
                     className="border-2 border-gray-400 p-3 w-full rounded-md"
                     placeholder="Duration"
                     required
                   />
                 </div>
-                <div className="form-field mt-2">
+                <div className="form-field mt-4">
                   <label className="pb-2" htmlFor="contact">
                     Contact Email
                   </label>
@@ -171,7 +206,7 @@ const EditChallengeHackathons = () => {
                     type="email"
                     id="contact"
                     name="contact"
-                    value={challengeData.contact}
+                    value={challengeData.contact || ""}
                     onChange={handleChange}
                     className="border-2 border-gray-400 p-3 w-full rounded-md"
                     placeholder="Email"
@@ -187,11 +222,11 @@ const EditChallengeHackathons = () => {
               <textarea
                 id="projectBrief"
                 name="projectBrief"
-                value={challengeData.projectBrief}
+                value={challengeData.projectBrief || ""}
                 onChange={handleChange}
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter text here..."
-                rows={6}
+                rows={3}
                 maxLength={50}
                 required
               />
@@ -206,7 +241,7 @@ const EditChallengeHackathons = () => {
               <textarea
                 id="projectDescription"
                 name="projectDescription"
-                value={challengeData.projectDescription}
+                value={challengeData.projectDescription || ""}
                 onChange={handleChange}
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter text here..."
@@ -226,7 +261,7 @@ const EditChallengeHackathons = () => {
               <textarea
                 id="projectDescTask"
                 name="projectDescTask"
-                value={challengeData.projectRequirement}
+                value={challengeData.projectRequirement || ""}
                 onChange={handleChange}
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter text here..."
@@ -239,6 +274,7 @@ const EditChallengeHackathons = () => {
               <button
                 type="button"
                 className="cancel-button bg-white text-blue-500 px-8 py-2 rounded-md border border-blue-500 transition duration-300"
+                onClick={() => navigate(`/challenge/${id}`)}
               >
                 Cancel
               </button>

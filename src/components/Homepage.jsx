@@ -9,12 +9,12 @@ import Testimonials from "./home/Testimonials";
 import Start from "./home/Start";
 import Career from "./home/Career";
 import Footer from "./home/Footer";
-
+import TalentHomePages from "../pages/talent-pages/TalentHomePages";
 
 export const Homepage = () => {
   return (
     <div>
-    <Navbar />
+      <Navbar />
       <Hero />
       <Stats />
       <SkillsLayout />
@@ -23,9 +23,8 @@ export const Homepage = () => {
       <Testimonials />
       <Start />
       <Career />
+      <TalentHomePages />
       <Footer />
-      
-     
     </div>
   );
 };

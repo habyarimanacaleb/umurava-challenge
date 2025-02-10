@@ -6,29 +6,28 @@ import ChallengeCount from "../../components/dashboard-components/ChallengeCount
 import challengeCountData from "../../asset/data-infor/ChallengecountData";
 import Pagination from "../../components/dashboard-components/Pagination";
 import { useUser } from "../../context/UserContext";
+
 const TalentChallenges = () => {
-  const { userRole } = useUser();
+  const { user } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
 
-  if (!userRole) return null; // Prevents errors
+  if (!user) return null; // Prevents errors if user is not available
 
   return (
     <div className="flex" style={{ height: "100%" }}>
       {/* Sidebar */}
-      {userRole && (
-        <SideBar
-          isSidebarExpanded={isSidebarExpanded}
-          userRole={userRole}
-          toggleSidebar={toggleSidebar}
-          className={`${
-            isSidebarExpanded ? "w-64" : "w-16"
-          } fixed z-10 transition-all duration-300 lg:relative`}
-        />
-      )}
+      <SideBar
+        isSidebarExpanded={isSidebarExpanded}
+        userRole={user.role}
+        toggleSidebar={toggleSidebar}
+        className={`${
+          isSidebarExpanded ? "w-64" : "w-16"
+        } fixed z-10 transition-all duration-300 lg:relative`}
+      />
 
       {/* Main Content */}
       <div className="flex-1 transition-all duration-300">
@@ -39,9 +38,10 @@ const TalentChallenges = () => {
           <div className="welcome-text p-4">
             <h1 className="text-2xl font-semibold text-gray-800">Challenges</h1>
             <p className="text-gray-600 text-base pt-1">
-              Join a challenge or a hackathon to gain valuable work experience,
+              Join a challenge or a hackathon to gain valuable work experience.
             </p>
           </div>
+
           {/* Challenge Count */}
           <div className="flex flex-wrap gap-5 p-4">
             {challengeCountData.map((challenge, index) => (
@@ -59,7 +59,8 @@ const TalentChallenges = () => {
           <div className="challenge-card-container px-4 flex-wrap">
             <NewChallengeCard isSidebarExpanded={isSidebarExpanded} />
           </div>
-          {/* pagination here */}
+
+          {/* Pagination */}
           <div className="pagination-container py-5 mx-3">
             <Pagination />
           </div>
