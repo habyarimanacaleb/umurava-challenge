@@ -19,13 +19,12 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
     const confirmLogout = window.confirm("Do you want to sign out?");
     if (confirmLogout) {
       console.log("User logged out");
-      localStorage.removeItem("userRole");
-      localStorage.removeItem("authToken");
-      window.location.href = "/login"; // Redirect to login page
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      window.location.href = "/login";
     }
   };
 
-  // Define sidebar links based on user role
   const sidebarLinks =
     userRole === "admin"
       ? [
@@ -66,7 +65,6 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
           />
         </div>
 
-        {/* Sidebar Toggle Button */}
         <button
           className="py-1 focus:outline-none"
           onClick={toggleSidebar}
@@ -78,7 +76,6 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
           />
         </button>
 
-        {/* Sidebar Navigation */}
         <div className="px-2 flex-grow">
           {sidebarLinks.map((item, index) => (
             <NavLink
@@ -99,11 +96,7 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
             </NavLink>
           ))}
         </div>
-
-        {/* Divider */}
         <hr className="border-t border-white/30 my-2" />
-
-        {/* Settings & User Section */}
         <div className="settings-container px-2">
           {[
             { icon: faCog, label: "Settings", path: "/settings" },
@@ -122,7 +115,6 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
             </NavLink>
           ))}
 
-          {/* User Account & Logout */}
           <div className="mt-4 mb-4 flex">
             {isSidebarExpanded && (
               <UserAccount isSidebarExpanded={isSidebarExpanded} />

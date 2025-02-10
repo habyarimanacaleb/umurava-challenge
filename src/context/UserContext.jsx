@@ -4,19 +4,28 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const UserContext = createContext();
 
 // Hook to use UserContext easily
-export const useUser = () => {
-  return useContext(UserContext);
-};
+export const useUser = () => useContext(UserContext);
 
 // Provider Component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Initialize as null to check loading state
+  const [user, setUser] = useState(() => {
+    // Initialize user from localStorage or undefined
+    const storedUser = localStorage.getItem("user");
+    let parsedUser = null;
+    try {
+      parsedUser = storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error("Error parsing stored user data:", error);
+      localStorage.removeItem("user"); // Remove corrupt data to prevent further crashes
+    }
+    return parsedUser;
+  });
+  const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    setTimeout(() => {
+      setLoading(false); // Mark loading as complete
+    }, 1000);
   }, []);
 
   // Store the user in localStorage whenever it changes
@@ -26,9 +35,9 @@ export const UserProvider = ({ children }) => {
     }
   }, [user]);
 
-  // Return loading state or actual children when user data is available
-  if (user === null) {
-    return <div>Loading...</div>; // Or a loading spinner
+  // Show loading screen while checking authentication
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
   return (

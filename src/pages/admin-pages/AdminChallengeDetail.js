@@ -4,15 +4,11 @@ import SideBar from "../../components/dashboard-components/SideBar";
 import TopNavbar from "../../components/dashboard-components/TopNavbar";
 import AdminKeyInstructionsBox from "../../components/dashboard-components/AdminKeyInstructionsBox";
 import { adminChallengeDetailData } from "../../asset/data-infor/ChallengeDetailData";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import {
-//   faArrowLeft,
-//   faSearch,
-//   faSlidersH,
-// } from "@fortawesome/free-solid-svg-icons";
+import { useUser } from "../../context/UserContext";
 
 const AdminChallengeDetail = () => {
-  const { id } = useParams(); // Get the challenge ID from the URL
+  const { user } = useUser();
+  const { id } = useParams();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
 
   const toggleSidebar = () => {
@@ -40,10 +36,13 @@ const AdminChallengeDetail = () => {
   let projectRequirement = challenge.projectRequirement.split(".");
   let deliverables = challenge.deliverables.split(".");
 
+  if (!user) return null; // Prevents errors if user is not available
+
   return (
     <div className="flex h-full">
       <SideBar
         isSidebarExpanded={isSidebarExpanded}
+        userRole={user.role}
         toggleSidebar={toggleSidebar}
       />
       <div className="flex-1 transition-all duration-300 bg-gray-100">
@@ -51,8 +50,8 @@ const AdminChallengeDetail = () => {
         <hr className="font-semibold text-gray-300" />
 
         {/* Challenge Information */}
-        <div className="p-4 w-full mx-auto flex space-x-5 lg:flex md:block sm:block mb-10">
-          <div className="bg-white shadow-md rounded-lg p-6 md:w-3/4 lg:w-2/3">
+        <div className="p-4 w-full mx-auto flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5 mb-10">
+          <div className="bg-white shadow-md rounded-lg p-6 lg:w-2/3">
             <img
               src={challenge.image}
               alt="Challenge"
@@ -88,7 +87,7 @@ const AdminChallengeDetail = () => {
               </ul>
             </div>
           </div>
-          <div className="key-instruction md:w-3/4 lg:w-2/3">
+          <div className="key-instruction lg:w-1/3">
             <AdminKeyInstructionsBox />
           </div>
         </div>

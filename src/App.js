@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider, useUser } from "./context/UserContext";
-import { ProtectedRoute } from "./components/dashboard-components/ProtectedRoutes";
+// import { ProtectedRoute } from "./components/dashboard-components/ProtectedRoutes";
 
 // Admin Pages
 import AdminHomePages from "./pages/admin-pages/AdminHomePages";
@@ -11,7 +11,7 @@ import CreateNewChallenge from "./components/dashboard-components/CreateNewChall
 import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
 
 // Talent Pages
-import TalentHomePage from "./pages/talent-pages/TalentHomePages";
+import TalentHomePages from "./pages/talent-pages/TalentHomePages";
 import TalentChallenge from "./pages/talent-pages/TalentChallenges";
 import TalentChallengeDetail from "./pages/talent-pages/TalentChallengeDetail";
 import TalentCommunity from "./pages/talent-pages/TalentCommunity";
@@ -27,67 +27,74 @@ import HomeButton from "./asset/404";
 
 function App() {
   return (
-    <UserProvider>
-      <Router>
+    <Router>
+      <UserProvider>
         <MainContent />
-      </Router>
-    </UserProvider>
+      </UserProvider>
+    </Router>
   );
 }
 
 function MainContent() {
-  const { user } = useUser(); // Accessing user context here
+  const userContext = useUser();
+  const user = userContext?.user || null;
 
-  if (!user) {
-    return <div>Loading...</div>; // Wait for the user context to load
-  }
+  console.log("MainContent Rendering. User:", user); // 🔍 Debugging log
 
-  const isAdmin = user.role === "admin";
-  const isTalent = user.role === "talent";
+  const isAdmin = user?.role === "admin";
+  const isTalent = user?.role === "talent";
 
   return (
     <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<Homepage />} />
+      <Route path="/Hackathons" element={<Challenge />} />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/institution" element={<Institution />} />
+      <Route path="/join" element={<Join />} />
+      <Route path="/contact" element={<Contact />} />
+
       {/* Admin Routes */}
       {isAdmin && (
         <>
           <Route
             path="/admin"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminHomePages />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminHomePages />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/admin-challenge"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminChallenge />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminChallenge />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/challenge/:id"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminChallengeDetail />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminChallengeDetail />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/admin-create-challenge"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <CreateNewChallenge />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["admin"]}>
+              <CreateNewChallenge />
+              // </ProtectedRoute>
             }
           />
           <Route
-            path="/admin-edit-challenge"
+            path="/admin-edit-challenge/:id"
             element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <EditChallengeHackathons />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["admin"]}>
+              <EditChallengeHackathons />
+              // </ProtectedRoute>
             }
           />
         </>
@@ -99,45 +106,37 @@ function MainContent() {
           <Route
             path="/talent"
             element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentHomePage />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["talent"]}>
+              <TalentHomePages />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/talent-challenge"
             element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentChallenge />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["talent"]}>
+              <TalentChallenge />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/talent-community"
             element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentCommunity />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["talent"]}>
+              <TalentCommunity />
+              // </ProtectedRoute>
             }
           />
           <Route
             path="/talent-challenge-detail"
             element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentChallengeDetail />
-              </ProtectedRoute>
+              // <ProtectedRoute allowedRoles={["talent"]}>
+              <TalentChallengeDetail />
+              // </ProtectedRoute>
             }
           />
         </>
       )}
-
-      {/* Public Routes */}
-      <Route path="/" element={<Homepage />} />
-      <Route path="/Hackathons" element={<Challenge />} />
-      <Route path="/about" element={<AboutUs />} />
-      <Route path="/institution" element={<Institution />} />
-      <Route path="/join" element={<Join />} />
-      <Route path="/contact" element={<Contact />} />
 
       {/* 404 Page */}
       <Route
