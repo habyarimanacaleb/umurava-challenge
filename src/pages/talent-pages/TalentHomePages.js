@@ -73,7 +73,7 @@ const TalentHomePages = () => {
           </div>
 
           {/* Challenge Card */}
-          <div className="challenge-card-container px-4 pb-10">
+          <div className="challenge-card-container px-4 pb-10 flex flex-wrap justify-center gap-4">
             <NewChallengeCard isSidebarExpanded={isSidebarExpanded} />
           </div>
         </div>

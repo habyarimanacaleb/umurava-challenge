@@ -39,22 +39,19 @@ function MainContent() {
   const userContext = useUser();
   const user = userContext?.user || null;
 
-  console.log("MainContent Rendering. User:", user); // 🔍 Debugging log
+  console.log("MainContent Rendering. User:", user);
 
   const isAdmin = user?.role === "admin";
   const isTalent = user?.role === "talent";
 
   return (
     <Routes>
-      {/* Public Routes */}
       <Route path="/" element={<Homepage />} />
       <Route path="/Hackathons" element={<Challenge />} />
       <Route path="/about" element={<AboutUs />} />
       <Route path="/institution" element={<Institution />} />
       <Route path="/join" element={<Join />} />
       <Route path="/contact" element={<Contact />} />
-
-      {/* Admin Routes */}
       {isAdmin && (
         <>
           <Route

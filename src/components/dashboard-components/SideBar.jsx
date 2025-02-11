@@ -21,7 +21,7 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
       console.log("User logged out");
       localStorage.removeItem("user");
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/";
     }
   };
 
