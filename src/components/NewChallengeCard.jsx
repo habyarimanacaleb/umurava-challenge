@@ -1,5 +1,6 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const NewChallengeCard = ({ isSidebarExpanded }) => {
   const challenges = [
@@ -52,6 +53,10 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
       status: "Open",
     },
   ];
+  const navigate = useNavigate();
+  const handleViewChallenge = () => {
+    navigate("/join");
+  };
   return (
     <div className="p-4">
       <div className=" text-center flex justify-between items-center">
@@ -81,7 +86,10 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
                 className="w-full h-44 object-cover rounded-t-lg p-2"
                 style={{ borderRadius: "14px" }}
               />
-              <button className="absolute top-4 right-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full">
+              <button
+                onClick={handleViewChallenge}
+                className="absolute top-4 right-4 bg-green-500 text-white text-xs px-3 py-1 rounded-full"
+              >
                 {challenge.status}
               </button>
             </div>
