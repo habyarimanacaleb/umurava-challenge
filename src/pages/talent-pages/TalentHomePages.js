@@ -30,15 +30,15 @@ const TalentHomePages = () => {
       />
 
       {/* Main Content */}
-      <div className="flex-1 transition-all duration-300">
+      <div className="flex-1 transition-all duration-300 ">
         <TopNavbar />
 
-        <div className="content bg-gray-50 mt-4 flex flex-col space-y-4">
+        <div className="content bg-gray-100 mt-4 flex flex-col space-y-4">
           {/* Welcome Text */}
           <div className="welcome-text flex justify-between items-center p-4">
             <div className="hello-message">
               <h1 className="text-2xl font-semibold text-gray-800">
-                Welcome Back, {user.name}
+                Welcome Back, {user.userName}
               </h1>
               <p className="text-gray-600 text-base">
                 Build Work Experience through Skills Challenges.
