@@ -11,6 +11,8 @@ const VerifyEmail = () => {
         );
         if (response.data.isConfirmed) {
           navigate("/join");
+        } else {
+          alert("Please check your email for verfication.");
         }
       } catch (error) {
         console.error("Failed to check confirmation status", error);
