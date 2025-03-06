@@ -55,7 +55,9 @@ export const ContactForm = () => {
         </h2>
 
         {responseMessage && (
-          <p className="text-center text-sm text-red-500">{responseMessage}</p>
+          <p className="text-center text-sm text-green-600">
+            {responseMessage}
+          </p>
         )}
 
         <form className="mt-4" onSubmit={handleSubmit}>

@@ -68,7 +68,6 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
           <FontAwesomeIcon icon={faChevronRight} size="sm" />
         </button>
       </div>
-
       {/* Cards Section */}
       <div className="flex flex-wrap gap-4 mt-12">
         {challenges.map((challenge) => (

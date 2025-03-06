@@ -34,7 +34,8 @@ const Footer = () => {
 
       if (response.ok) {
         setMessage("Subscribed successfully!");
-        setEmailInput(""); // Clear input
+        setEmailInput("");
+        setTimeout(() => setMessage(""), 5000);
       } else {
         setMessage(data.message || "Subscription failed.");
       }
@@ -59,8 +60,6 @@ const Footer = () => {
             <img src={gmail} alt="gmail" className="w-10 h-10" />
             <img src={linkedin} alt="linkedin" className="w-10 h-10" />
             <img src={youtube} alt="youtube" className="w-10 h-10" />
-        
-
           </div>
         </div>
 
@@ -89,10 +88,22 @@ const Footer = () => {
           <div>
             <p className="font-bold">Quick Links</p>
             <ul className="mt-4 space-y-2 text-sm">
-              <Link to="/"> <li>Home</li> </Link>
-              <Link to="/Hackatons"> <li>Program</li> </Link>
-              <Link to="/about"> <li>About</li> </Link>
-              <Link to="/contact"> <li>Contact Us</li> </Link>
+              <Link to="/">
+                {" "}
+                <li>Home</li>{" "}
+              </Link>
+              <Link to="/Hackatons">
+                {" "}
+                <li>Program</li>{" "}
+              </Link>
+              <Link to="/about">
+                {" "}
+                <li>About</li>{" "}
+              </Link>
+              <Link to="/contact">
+                {" "}
+                <li>Contact Us</li>{" "}
+              </Link>
             </ul>
           </div>
 
@@ -101,7 +112,10 @@ const Footer = () => {
             <p className="font-bold">
               Join our newsletter to keep up to date with us!
             </p>
-            <form onSubmit={handleSubscribe} className="mt-4 flex space-x-2 sm:flex-col">
+            <form
+              onSubmit={handleSubscribe}
+              className="mt-4 flex space-x-2 sm:flex-col"
+            >
               <input
                 type="email"
                 placeholder="Email"
@@ -119,7 +133,9 @@ const Footer = () => {
               </button>
             </form>
             {message && (
-              <p className="text-sm text-center mt-2 text-red-500">{message}</p>
+              <p className="text-sm text-center mt-2 text-green-600">
+                {message}
+              </p>
             )}
           </div>
         </div>
