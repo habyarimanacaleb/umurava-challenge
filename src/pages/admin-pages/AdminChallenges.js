@@ -59,7 +59,7 @@ const AdminChallenges = () => {
             ))}
             <div
               onClick={() => {
-                navigate("/admin-create-challenge");
+                navigate("/admin-create-challenge", { replace: true });
               }}
               className="create-challenge flex items-center p-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200 ease-in-out shadow-md ml-auto"
             >
