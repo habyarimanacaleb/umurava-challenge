@@ -24,6 +24,7 @@ import { AboutUs } from "./components/AboutUs";
 import { Institution } from "./components/Institution";
 import { Join } from "./components/Join";
 import VerifyEmail from "./server/VerifyEmail";
+import EmailConfirmation from "./server/EmailConfirmation";
 import { Contact } from "./components/Contact";
 import HomeButton from "./asset/404";
 
@@ -37,7 +38,8 @@ function App() {
           <Route path="/Hackathons" element={<Challenge />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/institution" element={<Institution />} />
-          <Route path="/email-verification" element={<VerifyEmail />} />
+          <Route path="/email-verification/:token" element={<VerifyEmail />} />
+          <Route path="/confirm/:token" element={<EmailConfirmation />} />
           <Route path="/join" element={<Join />} />
           <Route path="/contact" element={<Contact />} />
 
