@@ -1,30 +1,48 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-
-const VerifyEmail = () => {
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+const EmailConfirmation = () => {
   const { token } = useParams();
+  const [message, setMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-
   useEffect(() => {
-    const checkConfirmation = async () => {
+    const confirmEmail = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `https://umurava-challenge-bn.onrender.com/api/confirm/${token}`
         );
-        if (response.data.isConfirmed) {
-          navigate("/join");
+        if (!response.ok) {
+          throw new Error("Failed to confirm email");
+        }
+        const data = await response.json();
+
+        if (data.message === "Email confirmed successfully") {
+          setMessage(
+            "Email confirmed successfully! You will be redirected to the login page."
+          );
         } else {
-          alert("Please check your email for verification.");
+          setMessage("Failed to confirm email. Please try again.");
         }
       } catch (error) {
-        console.error("Failed to check confirmation status", error);
+        setMessage("There was an error confirming your email.");
+      } finally {
+        setIsLoading(false);
       }
     };
-    checkConfirmation();
-  }, [token, navigate]);
+    confirmEmail();
+  }, [token]);
 
-  return <div>Checking email confirmation status...</div>;
+  useEffect(() => {
+    if (!isLoading && message) {
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [isLoading, message, navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  return <div>{message && <p>{message}</p>}</div>;
 };
-
-export default VerifyEmail;
+export default EmailConfirmation;
