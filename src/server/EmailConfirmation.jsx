@@ -39,16 +39,15 @@ const EmailConfirmation = () => {
   }, [token]);
 
   useEffect(() => {
-    // After showing the message, automatically redirect to the login page after 2 seconds
     if (!isLoading && message) {
       setTimeout(() => {
-        navigate("/join"); // Redirect to login page
-      }, 2000); // Wait 2 seconds before redirecting
+        navigate("/");
+      }, 2000);
     }
   }, [isLoading, message, navigate]);
 
   if (isLoading) {
-    return <div>Loading...</div>; // Show loading message while confirming
+    return <div>Loading...</div>;
   }
 
   return (
