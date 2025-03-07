@@ -154,7 +154,7 @@ export const Navbar = () => {
               className="px-4 py-1 rounded-full inline-block text-base"
               onClick={() => setShowMobileMenu(false)}
             >
-              Join the programm
+              Join programm
             </Link>
           </ul>
         </div>

@@ -11,6 +11,7 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
     password: false,
     confirmPassword: false
   });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +19,8 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
       alert("Passwords do not match");
       return;
     }
-  
+    
+    setLoading(true);
     try {
       const response = await fetch("https://umurava-challenge-bn.onrender.com/api/registerUser", {
         method: "POST",
@@ -29,12 +31,14 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
       const data = await response.json();
       
       if (response.ok) {
-        alert(data.message); // Show success message
+        alert(data.message);
       } else {
-        alert(data.message); // Show error message
+        alert(data.message);
       }
     } catch (error) {
       alert("An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,14 +66,14 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
 
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="userName" className="block text-sm font-medium text-gray-700">
               Full Name
             </label>
             <input
               type="text"
               id="userName"
               name="userName"
-              value={formData.fullName}
+              value={formData.userName}
               onChange={handleChange}
               placeholder="Enter your Full Name"
               className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500"
@@ -148,12 +152,12 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
           <button
             type="submit"
             className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={loading}
           >
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
       </div>
     </div>
   );
 };
-

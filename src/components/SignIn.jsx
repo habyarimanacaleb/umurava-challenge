@@ -32,7 +32,7 @@ export const SignIn = ({ onSwitchToCreate }) => {
         const { token, user } = data;
         if (token && user) {
           localStorage.setItem("token", token);
-          localStorage.setItem("user", JSON.stringify(user)); // Ensure consistency with UserContext
+          localStorage.setItem("user", JSON.stringify(user)); 
           setUser(user);
           navigate(user.role === "admin" ? "/admin" : "/talent");
         } else {
