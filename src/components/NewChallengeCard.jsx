@@ -123,7 +123,6 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
               <strong>Timeline:</strong> {challenge.timeline}
             </p>
             <hr className="my-2" />
-
             <ViewChallengeButton challenge={challenge} />
           </div>
         ))}
@@ -131,5 +130,4 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
     </div>
   );
 };
-
 export default NewChallengeCard;

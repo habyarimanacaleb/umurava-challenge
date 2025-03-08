@@ -47,13 +47,13 @@ const CreateNewChallenge = () => {
       return;
     }
 
-    if (formData.projectDescription.length > 250) {
-      setFormError("Project Description should be within 250 characters.");
+    if (formData.projectDescription.length > 500) {
+      setFormError("Project Description should be within 500 characters.");
       return;
     }
 
-    if (formData.projectBrief.length > 50) {
-      setFormError("Project Brief should be within 50 characters.");
+    if (formData.projectBrief.length > 250) {
+      setFormError("Project Brief should be within 0 characters.");
       return;
     }
 
@@ -270,7 +270,7 @@ const CreateNewChallenge = () => {
 
             <div className="form-field mt-4">
               <label className="pb-2" htmlFor="projectBrief">
-                Project Brief (Max 50 characters)
+                Project Brief (Max 500 characters)
               </label>
               <textarea
                 id="projectBrief"

@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import { ProtectedRoute } from "./components/dashboard-components/ProtectedRoutes";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 // Admin Pages
 import AdminHomePages from "./pages/admin-pages/AdminHomePages";
@@ -30,114 +33,116 @@ function App() {
   return (
     <Router>
       <UserProvider>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Homepage />} />
-          <Route path="/Hackathons" element={<Challenge />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/institution" element={<Institution />} />
-          <Route path="/email-verification" element={<VerifyEmail />} />
-          <Route path="/confirm/:token" element={<EmailConfirmation />} />
-          <Route path="/join" element={<Join />} />
-          <Route path="/contact" element={<Contact />} />
+        <ErrorBoundary>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Homepage />} />
+            <Route path="/Hackathons" element={<Challenge />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/institution" element={<Institution />} />
+            <Route path="/email-verification" element={<VerifyEmail />} />
+            <Route path="/confirm/:token" element={<EmailConfirmation />} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/contact" element={<Contact />} />
 
-          {/* Admin Routes */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminHomePages />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin-challenge"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminChallenge />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin-challenge/:id"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminChallengeDetail />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin-create-challenge"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <CreateNewChallenge />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin-edit-challenge/:id"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <EditChallengeHackathons />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin-community"
-            element={
-              <ProtectedRoute allowedRoles={["admin"]}>
-                <AdminCommunity />
-              </ProtectedRoute>
-            }
-          />
+            {/* Admin Routes */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminHomePages />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin-challenge"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminChallenge />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin-challenge/:id"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminChallengeDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin-create-challenge"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <CreateNewChallenge />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin-edit-challenge/:id"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <EditChallengeHackathons />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin-community"
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminCommunity />
+                </ProtectedRoute>
+              }
+            />
 
-          {/* Talent Routes */}
-          <Route
-            path="/talent"
-            element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentHomePages />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/talent-challenge"
-            element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentChallenge />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/talent-community"
-            element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentCommunity />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/talent-challenge-detail"
-            element={
-              <ProtectedRoute allowedRoles={["talent"]}>
-                <TalentChallengeDetail />
-              </ProtectedRoute>
-            }
-          />
+            {/* Talent Routes */}
+            <Route
+              path="/talent"
+              element={
+                <ProtectedRoute allowedRoles={["talent"]}>
+                  <TalentHomePages />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/talent-challenge"
+              element={
+                <ProtectedRoute allowedRoles={["talent"]}>
+                  <TalentChallenge />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/talent-community"
+              element={
+                <ProtectedRoute allowedRoles={["talent"]}>
+                  <TalentCommunity />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/talent-challenge-detail"
+              element={
+                <ProtectedRoute allowedRoles={["talent"]}>
+                  <TalentChallengeDetail />
+                </ProtectedRoute>
+              }
+            />
 
-          {/* 404 Page */}
-          <Route
-            path="*"
-            element={
-              <div className="bg-gray-100 h-[100vh] flex flex-col p-42 items-center">
-                <h1 className="text-center text-3xl font-bold">
-                  404 - Page Not Found. Return To Home Page.
-                </h1>
-                <HomeButton />
-              </div>
-            }
-          />
-        </Routes>
+            {/* 404 Page */}
+            <Route
+              path="*"
+              element={
+                <div className="bg-gray-100 h-[100vh] flex flex-col p-42 items-center">
+                  <h1 className="text-center text-3xl font-bold">
+                    404 - Page Not Found. Return To Home Page.
+                  </h1>
+                  <HomeButton />
+                </div>
+              }
+            />
+          </Routes>
+        </ErrorBoundary>
       </UserProvider>
     </Router>
   );

@@ -6,7 +6,7 @@ const EditChallengeHackathons = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    ImageUrl: "",
+    imageUrl: "",
     title: "",
     date: "",
     prize: "",
@@ -22,7 +22,7 @@ const EditChallengeHackathons = () => {
     const fetchChallenge = async () => {
       try {
         const response = await axios.get(
-          `https://umurava-challenge-bn.onrender.com/api/getBlog/${id}`
+          `https://umurava-challenge-bn.onrender.com/api/challenges/${id}`
         );
         setFormData(response.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const EditChallengeHackathons = () => {
     };
 
     fetchChallenge();
-  }, [id]);
+  }, [id]); // Only 'id' is needed as a dependency
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,7 +66,7 @@ const EditChallengeHackathons = () => {
 
     try {
       await axios.put(
-        `https://umurava-challenge-bn.onrender.com/api/updateBlog/${id}`,
+        `https://umurava-challenge-bn.onrender.com/api/challenges/${id}`,
         formData
       );
       alert("Challenge updated successfully");
