@@ -6,27 +6,37 @@ import {
   faCalendarAlt,
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AdminKeyInstructionsBox = () => {
+const AdminKeyInstructionsBox = ({ challengeId }) => {
   const navigate = useNavigate();
-  // const { id } = useParams.id;
-  const handleDelete = () => {
-    //Delete challenge logic
-    alert("Challenge deleted!");
-    navigate("/admin");
+
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this challenge?")) {
+      try {
+        const response = await fetch(`/api/deleteBlog/${challengeId}`, {
+          method: "DELETE",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to delete challenge");
+        }
+        console.log("Challenge deleted!");
+        navigate("/admin");
+      } catch (error) {
+        console.error("Error deleting challenge:", error);
+        alert("There was an error deleting the challenge. Please try again.");
+      }
+    }
   };
+
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-80">
-      {/* Title */}
       <h3 className="text-lg font-semibold text-gray-800 mb-2">
         Key Instructions:
       </h3>
       <p className="text-sm text-gray-600 mb-4">
         You are free to schedule the clarification call with the team via this.
       </p>
-
-      {/* Items */}
       <div className="space-y-4">
         <div className="flex items-center space-x-3">
           <FontAwesomeIcon icon={faEnvelope} className="text-blue-500" />
@@ -63,16 +73,19 @@ const AdminKeyInstructionsBox = () => {
         </div>
       </div>
 
-      {/* CTA Button */}
       <div className="call-to-action flex space-x-4">
         <button
           onClick={handleDelete}
-          className="mt-6 w-full bg-red-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+          className="mt-6 w-full bg-red-500 text-white text-sm py-2 rounded-lg hover:bg-red-600 transition duration-300"
         >
           Delete
         </button>
         <button
-          onClick={() => navigate("/admin-edit-challenge")}
+          onClick={() =>
+            challengeId
+              ? navigate(`/admin-edit-challenge/${challengeId}`)
+              : alert("Challenge ID is missing!")
+          }
           className="mt-6 w-full bg-blue-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300"
         >
           Edit

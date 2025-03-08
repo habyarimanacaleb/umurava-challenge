@@ -9,22 +9,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
-
 const AdminChallenges = () => {
   const { user } = useUser();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
-
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
-  // use navigation for routes
   const navigate = useNavigate();
-
-  if (!user) return null; // Prevents errors if user is not available
-
+  if (!user) return null;
   return (
     <div className="flex" style={{ height: "100%" }}>
-      {/* Sidebar */}
       <SideBar
         isSidebarExpanded={isSidebarExpanded}
         userRole={user.role}
@@ -33,20 +27,15 @@ const AdminChallenges = () => {
           isSidebarExpanded ? "w-64" : "w-16"
         } fixed z-10 transition-all duration-300 lg:relative`}
       />
-
-      {/* Main Content */}
       <div className="flex-1 transition-all duration-300">
         <TopNavbar />
-
         <div className="content bg-gray-100 mt-4 pb-4 flex flex-col space-y-4">
-          {/* Welcome Text */}
           <div className="welcome-text p-4">
             <h1 className="text-2xl font-semibold text-gray-800">Challenges</h1>
             <p className="text-gray-600 text-base pt-1">
               Join a challenge or a hackathon to gain valuable work experience,
             </p>
           </div>
-          {/* Challenge Count */}
           <div className="flex items-center justify-center flex-wrap gap-2">
             {challengeCountData.map((challenge, index) => (
               <ChallengeCount
@@ -61,20 +50,21 @@ const AdminChallenges = () => {
               onClick={() => {
                 navigate("/admin-create-challenge", { replace: true });
               }}
-              className="create-challenge flex items-center p-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200 ease-in-out shadow-md ml-auto"
+              className="create-challenge flex items-center p-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition duration-200 ease-in-out shadow-md pl-4 mt-4 cursor-pointer"
             >
-              <FontAwesomeIcon icon={faPlus} size="sm" className="pr-2" />
+              <FontAwesomeIcon
+                icon={faPlus}
+                size="sm"
+                className="pr-2 flex items-center justify-center"
+              />
               <p className="font-sans font-semibold text-sm">
                 Create New Challenge
               </p>
             </div>
           </div>
-
-          {/* Challenge Card */}
-          <div className="challenge-card-container px-4 flex-wrap">
+          <div className="challenge-card-container px-4">
             <NewChallengeCard isSidebarExpanded={isSidebarExpanded} />
           </div>
-          {/* pagination here */}
           <div className="pagination-container py-5 mx-3">
             <Pagination />
           </div>
@@ -83,5 +73,4 @@ const AdminChallenges = () => {
     </div>
   );
 };
-
 export default AdminChallenges;
