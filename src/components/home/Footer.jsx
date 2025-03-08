@@ -114,23 +114,27 @@ const Footer = () => {
             </p>
             <form
               onSubmit={handleSubscribe}
-              className="mt-4 flex space-x-2 sm:flex-col"
-            >
+              className="w-full max-w-md mt-2">
+                  <div className="flex items-center bg-white p-2 rounded-lg
+                    border-none outline-none">
               <input
                 type="email"
                 placeholder="Email"
                 value={emailInput}
                 onChange={(e) => setEmailInput(e.target.value)}
-                className="flex-1 px-4 py-2 mb-2 rounded-lg text-white border border-gray-300"
+                className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 
+                leading-tight focus:outline-none"
                 required
               />
               <button
                 type="submit"
-                className="bg-blue-500 px-4 py-2 rounded-lg text-white hover:bg-blue-600 transition"
+                className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 
+                text-sm border-4 text-white py-1 px-2 rounded"
                 disabled={loading}
               >
                 {loading ? "Subscribing..." : "Subscribe"}
               </button>
+              </div>
             </form>
             {message && (
               <p className="text-sm text-center mt-2 text-green-600">
