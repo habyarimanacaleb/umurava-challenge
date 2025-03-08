@@ -21,6 +21,7 @@ const CreateNewChallenge = () => {
     projectTasks: "",
   });
   const [formError, setFormError] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
@@ -33,6 +34,11 @@ const CreateNewChallenge = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  // Handle file input change
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
   };
 
   const handleCreateChallenge = async (e) => {
@@ -59,10 +65,26 @@ const CreateNewChallenge = () => {
       return;
     }
 
+    const formDataToSend = new FormData();
+    formDataToSend.append("imageUrl", imageFile);
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("date", formData.date);
+    formDataToSend.append("duration", formData.duration);
+    formDataToSend.append("prize", formData.prize);
+    formDataToSend.append("contact", formData.contact);
+    formDataToSend.append("projectDescription", formData.projectDescription);
+    formDataToSend.append("projectBrief", formData.projectBrief);
+    formDataToSend.append("projectTasks", formData.projectTasks);
+
     try {
       await axios.post(
         "https://umurava-challenge-bn.onrender.com/api/challenges",
-        formData
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       alert("Challenge created successfully");
       navigate("/admin-challenge");
@@ -83,6 +105,7 @@ const CreateNewChallenge = () => {
       projectBrief: "",
       projectTasks: "",
     });
+    setImageFile(null);
   };
 
   return (
@@ -145,16 +168,14 @@ const CreateNewChallenge = () => {
           <form onSubmit={handleCreateChallenge}>
             <div className="form-field mt-2">
               <label className="pb-2" htmlFor="imageUrl">
-                Image URL
+                Image
               </label>
               <input
-                type="text"
+                type="file"
                 id="imageUrl"
                 name="imageUrl"
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
-                placeholder="Enter Image URL"
-                value={formData.imageUrl}
-                onChange={handleInputChange}
+                onChange={handleFileChange}
               />
             </div>
             <div className="form-field mt-2">

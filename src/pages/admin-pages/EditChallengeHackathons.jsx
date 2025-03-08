@@ -43,7 +43,6 @@ const EditChallengeHackathons = () => {
   const handleUpdateChallenge = async (e) => {
     e.preventDefault();
 
-    // Basic form validation
     if (formData.prize && isNaN(formData.prize)) {
       setFormError("Prize must be a valid number.");
       return;
