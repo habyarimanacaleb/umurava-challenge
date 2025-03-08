@@ -6,13 +6,13 @@ const ChallengeCard = ({ challenge }) => {
   const navigate = useNavigate();
 
   const handleViewChallenge = () => {
-    navigate(`/admin-challenge/${challenge.id}`);
+    navigate(`/admin-challenge/${challenge._id}`);
   };
 
   return (
     <div className="challenge-card">
       <h3>{challenge.title}</h3>
-      <img src={challenge.image} alt={`${challenge.title} image`} />
+      <img src={challenge.imageUrl} alt={`${challenge.title} image`} />
       <button onClick={handleViewChallenge}>View Challenge</button>
     </div>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ChallengeActions from "../components/dashboard-components/ChallengeActions";
 
 const AdminChallengeDetail = () => {
   const { id } = useParams();
@@ -10,8 +9,11 @@ const AdminChallengeDetail = () => {
   useEffect(() => {
     const fetchChallenge = async () => {
       try {
-        const response = await axios.get(`/api/challenges/${id}`);
+        const response = await axios.get(
+          `https://umurava-challenge-bn.onrender.com/api/getSingleBlog/${id}`
+        );
         setChallenge(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Failed to fetch challenge details", error);
       }
@@ -27,14 +29,15 @@ const AdminChallengeDetail = () => {
   return (
     <div className="challenge-detail">
       <h1>{challenge.title}</h1>
-      <img src={challenge.image} alt={`${challenge.title} image`} />
-      <img src={challenge.logo} alt={`${challenge.title} logo`} />
-      <p>{challenge.description}</p>
+      <img src={challenge.imageUrl} alt={`${challenge.title} profile`} />
+      <p>{challenge.projectDescription}</p>
       <div className="user-info">
-        <img src={challenge.user.image} alt={`${challenge.user.name} avatar`} />
-        <p>{challenge.user.name}</p>
+        <img
+          src={challenge.user?.image}
+          alt={`${challenge.user?.name} avatar`}
+        />
+        <p>{challenge.user?.name}</p>
       </div>
-      <ChallengeActions challengeId={id} />
     </div>
   );
 };

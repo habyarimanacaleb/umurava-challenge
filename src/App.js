@@ -10,8 +10,6 @@ import AdminCommunity from "./pages/admin-pages/AdminCommunity";
 import AdminChallengeDetail from "./pages/admin-pages/AdminChallengeDetail";
 import CreateNewChallenge from "./components/dashboard-components/CreateNewChallenge";
 import EditChallengeHackathons from "./pages/admin-pages/EditChallengeHackathons";
-
-// Talent Pages
 import TalentHomePages from "./pages/talent-pages/TalentHomePages";
 import TalentChallenge from "./pages/talent-pages/TalentChallenges";
 import TalentChallengeDetail from "./pages/talent-pages/TalentChallengeDetail";

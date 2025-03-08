@@ -22,10 +22,12 @@ const CreateNewChallenge = () => {
   });
   const [formError, setFormError] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  // const [message, setMessage] = useState("");
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -33,6 +35,7 @@ const CreateNewChallenge = () => {
       [name]: value,
     }));
   };
+
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
   };
@@ -72,7 +75,7 @@ const CreateNewChallenge = () => {
 
     try {
       await axios.post(
-        "https://umurava-challenge-bn.onrender.com/api/challenges",
+        "https://umurava-challenge-bn.onrender.com/api/createBlog",
         formDataToSend,
         {
           headers: {
@@ -80,7 +83,7 @@ const CreateNewChallenge = () => {
           },
         }
       );
-      alert("Challenge created successfully");
+      console.log("Challenge created successfully");
       navigate("/admin-challenge");
     } catch (error) {
       console.error("Failed to create challenge", error);
@@ -99,6 +102,7 @@ const CreateNewChallenge = () => {
     });
     setImageFile(null);
   };
+
   return (
     <div className="flex" style={{ height: "100%" }}>
       <SideBar
@@ -313,7 +317,6 @@ const CreateNewChallenge = () => {
           </form>
         </div>
       </div>
-      {console.log(formData)}
     </div>
   );
 };

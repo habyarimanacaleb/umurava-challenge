@@ -6,14 +6,15 @@ const EditChallengeHackathons = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    ImageUrl: "",
     title: "",
     date: "",
     prize: "",
-    time: "",
+    duration: "",
     contact: "",
     projectDescription: "",
     projectBrief: "",
-    projectDescTask: "",
+    projectTasks: "",
   });
   const [formError, setFormError] = useState("");
 
@@ -21,7 +22,7 @@ const EditChallengeHackathons = () => {
     const fetchChallenge = async () => {
       try {
         const response = await axios.get(
-          `https://umurava-challenge-bn.onrender.com/api/challenges/${id}`
+          `https://umurava-challenge-bn.onrender.com/api/getBlog/${id}`
         );
         setFormData(response.data);
       } catch (error) {
@@ -58,14 +59,14 @@ const EditChallengeHackathons = () => {
       return;
     }
 
-    if (formData.projectDescTask.length > 500) {
+    if (formData.projectTasks.length > 500) {
       setFormError("Project Tasks should be within 500 characters.");
       return;
     }
 
     try {
       await axios.put(
-        `https://umurava-challenge-bn.onrender.com/api/challenges/${id}`,
+        `https://umurava-challenge-bn.onrender.com/api/updateBlog/${id}`,
         formData
       );
       alert("Challenge updated successfully");
@@ -115,12 +116,12 @@ const EditChallengeHackathons = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="time">Duration</label>
+          <label htmlFor="duration">Duration</label>
           <input
             type="text"
-            id="time"
-            name="time"
-            value={formData.time}
+            id="duration"
+            name="duration"
+            value={formData.duration}
             onChange={handleInputChange}
             required
           />
@@ -157,11 +158,11 @@ const EditChallengeHackathons = () => {
           />
         </div>
         <div className="form-field">
-          <label htmlFor="projectDescTask">Project Description & Tasks</label>
+          <label htmlFor="projectTasks">Project Description & Tasks</label>
           <textarea
-            id="projectDescTask"
-            name="projectDescTask"
-            value={formData.projectDescTask}
+            id="projectTasks"
+            name="projectTasks"
+            value={formData.projectTasks}
             onChange={handleInputChange}
             required
           />
