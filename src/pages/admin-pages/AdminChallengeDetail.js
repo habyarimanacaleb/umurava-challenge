@@ -48,8 +48,6 @@ const AdminChallengeDetail = () => {
       <div className="flex-1 transition-all duration-300 bg-gray-100">
         <TopNavbar />
         <hr className="font-semibold text-gray-300" />
-
-        {/* Challenge Information */}
         <div className="p-4 w-full mx-auto flex flex-col lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5 mb-10">
           <div className="bg-white shadow-md rounded-lg p-6 lg:w-2/3">
             <img
@@ -59,7 +57,6 @@ const AdminChallengeDetail = () => {
             />
             <h3 className="text-lg font-semibold mt-2">{challenge.title}</h3>
             <p className="text-gray-600 mt-4">{challenge.projectBrief}</p>
-
             <div className="project-requirement mt-6">
               <h3 className="text-lg font-semibold">Project Requirements</h3>
               <ul className="list-disc pl-5 text-gray-600">
@@ -68,7 +65,6 @@ const AdminChallengeDetail = () => {
                 ))}
               </ul>
             </div>
-
             <div className="project-description mt-6">
               <h3 className="text-lg font-semibold">Project Description</h3>
               <ul className="list-disc pl-5 text-gray-600">
@@ -77,7 +73,6 @@ const AdminChallengeDetail = () => {
                 ))}
               </ul>
             </div>
-
             <div className="deliverables mt-6">
               <h4 className="text-lg font-semibold">Deliverables:</h4>
               <ul className="list-disc pl-5 text-gray-600">
@@ -88,7 +83,7 @@ const AdminChallengeDetail = () => {
             </div>
           </div>
           <div className="key-instruction lg:w-1/3">
-            <AdminKeyInstructionsBox />
+            <AdminKeyInstructionsBox challengeId={id} />
           </div>
         </div>
       </div>

@@ -57,7 +57,7 @@ const SideBar = ({ isSidebarExpanded, toggleSidebar, userRole }) => {
         {/* Logo Section */}
         <div className="flex justify-center py-4">
           <img
-            src="images/official-logo-image.png"
+            src="images/Official-Logo.png"
             alt="Logo"
             className={`rounded-full ${
               isSidebarExpanded ? "w-16 h-16" : "w-12 h-12"

@@ -38,7 +38,7 @@ function App() {
           <Route path="/Hackathons" element={<Challenge />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/institution" element={<Institution />} />
-          <Route path="/email-verification/:token" element={<VerifyEmail />} />
+          <Route path="/email-verification" element={<VerifyEmail />} />
           <Route path="/confirm/:token" element={<EmailConfirmation />} />
           <Route path="/join" element={<Join />} />
           <Route path="/contact" element={<Contact />} />
@@ -61,7 +61,7 @@ function App() {
             }
           />
           <Route
-            path="/challenge/:id"
+            path="/admin-challenge/:id"
             element={
               <ProtectedRoute allowedRoles={["admin"]}>
                 <AdminChallengeDetail />

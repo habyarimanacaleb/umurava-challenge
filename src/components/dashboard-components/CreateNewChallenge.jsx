@@ -4,21 +4,24 @@ import TopNavbar from "./TopNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreateNewChallenge = () => {
   const navigate = useNavigate();
   const [isSidebarExpanded, setSidebarExpanded] = useState(false);
   const [formData, setFormData] = useState({
+    imageUrl: "",
     title: "",
     date: "",
+    duration: "",
     prize: "",
-    time: "",
     contact: "",
     projectDescription: "",
     projectBrief: "",
-    projectDescTask: "",
+    projectTasks: "",
   });
   const [formError, setFormError] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
@@ -33,7 +36,12 @@ const CreateNewChallenge = () => {
     }));
   };
 
-  const handleCreateChallenge = (e) => {
+  // Handle file input change
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+
+  const handleCreateChallenge = async (e) => {
     e.preventDefault();
 
     // Basic form validation
@@ -52,28 +60,52 @@ const CreateNewChallenge = () => {
       return;
     }
 
-    if (formData.projectDescTask.length > 500) {
+    if (formData.projectTasks.length > 500) {
       setFormError("Project Tasks should be within 500 characters.");
       return;
     }
 
-    // If no errors, submit the form (simulating backend API call here)
-    // For now, we can simply navigate to the admin page
-    console.log("Challenge created:", formData);
+    const formDataToSend = new FormData();
+    formDataToSend.append("imageUrl", imageFile);
+    formDataToSend.append("title", formData.title);
+    formDataToSend.append("date", formData.date);
+    formDataToSend.append("duration", formData.duration);
+    formDataToSend.append("prize", formData.prize);
+    formDataToSend.append("contact", formData.contact);
+    formDataToSend.append("projectDescription", formData.projectDescription);
+    formDataToSend.append("projectBrief", formData.projectBrief);
+    formDataToSend.append("projectTasks", formData.projectTasks);
+
+    try {
+      await axios.post(
+        "https://umurava-challenge-bn.onrender.com/api/challenges",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert("Challenge created successfully");
+      navigate("/admin-challenge");
+    } catch (error) {
+      console.error("Failed to create challenge", error);
+      alert("Failed to create challenge");
+    }
 
     // Reset the form (if necessary)
     setFormData({
+      imageUrl: "",
       title: "",
       date: "",
+      duration: "",
       prize: "",
-      time: "",
       contact: "",
       projectDescription: "",
       projectBrief: "",
-      projectDescTask: "",
+      projectTasks: "",
     });
-
-    navigate("/admin"); // Redirect to the admin page after submission
+    setImageFile(null);
   };
 
   return (
@@ -96,12 +128,28 @@ const CreateNewChallenge = () => {
               className="bg-gray-300 p-2 rounded-md text-xs"
               onClick={() => navigate("/admin")} // Navigate back to the admin page
             />
-            <p className="text-gray-500">Go Back</p>
+            <p
+              onClick={() => {
+                navigate("/admin");
+              }}
+              className="text-gray-500 hover:text-blue-500"
+            >
+              Go Back
+            </p>
           </div>
           <div className="challenge-hackthons flex items-center space-x-3">
-            <p className="pl-3">Challenges & Hackathons </p>
+            <p
+              onClick={() => {
+                navigate("/admin-challenge");
+              }}
+              className="hover:text-blue-500 pl-3 "
+            >
+              Challenges & Hackathons{" "}
+            </p>
             <span>/</span>
-            <p className="text-blue-500">Create New Challenge</p>
+            <p className="text-gray-500 hover:text-blue-500">
+              Create New Challenge
+            </p>
           </div>
         </div>
         <hr />
@@ -118,6 +166,18 @@ const CreateNewChallenge = () => {
           {formError && <div className="text-red-500 mt-2">{formError}</div>}
 
           <form onSubmit={handleCreateChallenge}>
+            <div className="form-field mt-2">
+              <label className="pb-2" htmlFor="imageUrl">
+                Image
+              </label>
+              <input
+                type="file"
+                id="imageUrl"
+                name="imageUrl"
+                className="border-2 border-gray-400 p-3 w-full rounded-md"
+                onChange={handleFileChange}
+              />
+            </div>
             <div className="form-field mt-2">
               <label className="pb-2" htmlFor="title">
                 Challenge/Hackathon Title
@@ -169,16 +229,16 @@ const CreateNewChallenge = () => {
 
               <div className="sub-input-group flex-1">
                 <div className="form-field mt-2">
-                  <label className="pb-2" htmlFor="time">
+                  <label className="pb-2" htmlFor="duration">
                     Duration
                   </label>
                   <input
                     type="text"
-                    id="time"
-                    name="time"
+                    id="duration"
+                    name="duration"
                     className="border-2 border-gray-400 p-3 w-full rounded-md"
                     placeholder="Duration"
-                    value={formData.time}
+                    value={formData.duration}
                     onChange={handleInputChange}
                     required
                   />
@@ -202,12 +262,12 @@ const CreateNewChallenge = () => {
             </div>
 
             <div className="form-field mt-4">
-              <label className="pb-2" htmlFor="project-description">
+              <label className="pb-2" htmlFor="projectDescription">
                 Project Description (Max 250 characters)
               </label>
               <textarea
-                id="project-description"
-                name="projectdescription"
+                id="projectDescription"
+                name="projectDescription"
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter text here..."
                 rows={4}
@@ -218,11 +278,11 @@ const CreateNewChallenge = () => {
             </div>
 
             <div className="form-field mt-4">
-              <label className="pb-2" htmlFor="project-brief">
+              <label className="pb-2" htmlFor="projectBrief">
                 Project Brief (Max 50 characters)
               </label>
               <textarea
-                id="project-brief"
+                id="projectBrief"
                 name="projectBrief"
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter text here..."
@@ -234,16 +294,16 @@ const CreateNewChallenge = () => {
             </div>
 
             <div className="form-field mt-4">
-              <label className="pb-2" htmlFor="project-tasks">
+              <label className="pb-2" htmlFor="projectTasks">
                 Project Description & Tasks (Max 500 characters)
               </label>
               <textarea
-                id="project-tasks"
-                name="projectDescTask"
+                id="projectTasks"
+                name="projectTasks"
                 className="border-2 border-gray-400 p-3 w-full rounded-md"
                 placeholder="Enter text here..."
                 rows={6}
-                value={formData.projectDescTask}
+                value={formData.projectTasks}
                 onChange={handleInputChange}
                 required
               />
@@ -267,6 +327,7 @@ const CreateNewChallenge = () => {
           </form>
         </div>
       </div>
+      {console.log(formData)}
     </div>
   );
 };

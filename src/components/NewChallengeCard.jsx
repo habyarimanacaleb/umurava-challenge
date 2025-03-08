@@ -1,7 +1,7 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-
+import ViewChallengeButton from "./dashboard-components/ViewChallengeButton";
 const NewChallengeCard = ({ isSidebarExpanded }) => {
   const challenges = [
     {
@@ -63,24 +63,22 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
         <h1 className="text-md font-semibold md:text-xl font-bold ">
           Recent Challenges
         </h1>
-        <button className="right-3 text-blue-600 font-inter font-semibold">
-          <span className="text-[12px]">see more</span>
+        <button className="right-3 text-blue-600 font-inter font-semibold cursor-pointer flex items-center">
+          <span className="text-md pr-2">See more</span>
           <FontAwesomeIcon icon={faChevronRight} size="sm" />
         </button>
       </div>
-      {/* Cards Section */}
       <div className="flex flex-wrap gap-4 mt-12">
         {challenges.map((challenge) => (
           <div
             key={challenge.id}
             className={`bg-white shadow-lg rounded-lg ${
               isSidebarExpanded ? "w-[18rem]" : "w-[25rem]"
-            } border max-w-[500px]  shadow-md`}
+            } border max-w-[500px]  shadow-md md:w-full mx-auto`}
           >
-            {/* Image Section */}
             <div className="relative">
               <img
-                src={`${process.env.PUBLIC_URL}/images/dsd copy.jpg`}
+                src={`${process.env.PUBLIC_URL}/images/dsd-copy.jpg`}
                 alt={challenge.title}
                 className="w-full h-44 object-cover rounded-t-lg p-2"
                 style={{ borderRadius: "14px" }}
@@ -92,8 +90,6 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
                 {challenge.status}
               </button>
             </div>
-
-            {/* Card Title */}
             <h2
               className={`mt-4 ${
                 isSidebarExpanded ? "text-[15px]" : "text-lg"
@@ -101,8 +97,6 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
             >
               {challenge.title}
             </h2>
-
-            {/* Skills Section */}
             <div className="mt-3 px-4">
               <p className="text-sm font-semibold text-gray-800">
                 Skills Needed:
@@ -118,8 +112,6 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
                 ))}
               </div>
             </div>
-
-            {/* Additional Details */}
             <p
               className={`mt-4 ${
                 isSidebarExpanded ? "text-[12px]" : "text-sm"
@@ -130,14 +122,9 @@ const NewChallengeCard = ({ isSidebarExpanded }) => {
             <p className="mt-1 text-sm text-gray-600 px-4 pb-2">
               <strong>Timeline:</strong> {challenge.timeline}
             </p>
-
-            {/* Divider */}
             <hr className="my-2" />
 
-            {/* Call-to-Action Button */}
-            <button className="m-4 bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-600 hover:shadow-lg transition duration-300">
-              View Challenge
-            </button>
+            <ViewChallengeButton challenge={challenge} />
           </div>
         ))}
       </div>

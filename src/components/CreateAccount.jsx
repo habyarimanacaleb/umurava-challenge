@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const CreateAccount = ({ onSwitchToSignIn }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    userName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState({
     password: false,
-    confirmPassword: false
+    confirmPassword: false,
   });
 
   const handleSubmit = async (e) => {
@@ -18,18 +20,22 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
       alert("Passwords do not match");
       return;
     }
-  
+
     try {
-      const response = await fetch("https://umurava-challenge-bn.onrender.com/api/registerUser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-  
+      const response = await fetch(
+        "https://umurava-challenge-bn.onrender.com/api/registerUser",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
       const data = await response.json();
-      
+
       if (response.ok) {
         alert(data.message); // Show success message
+        navigate("/email-verification");
       } else {
         alert(data.message); // Show error message
       }
@@ -41,7 +47,7 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -62,7 +68,10 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
 
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium text-gray-700"
+            >
               Full Name
             </label>
             <input
@@ -77,7 +86,10 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -92,7 +104,10 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <div className="relative">
@@ -107,10 +122,12 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
               />
               <button
                 type="button"
-                onClick={() => setShowPassword({
-                  ...showPassword,
-                  password: !showPassword.password
-                })}
+                onClick={() =>
+                  setShowPassword({
+                    ...showPassword,
+                    password: !showPassword.password,
+                  })
+                }
                 className="absolute inset-y-0 right-2 flex items-center px-2 mt-1 text-gray-400"
               >
                 {showPassword.password ? "Hide" : "Show"}
@@ -119,7 +136,10 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700"
+            >
               Confirm Password
             </label>
             <div className="relative">
@@ -134,10 +154,12 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
               />
               <button
                 type="button"
-                onClick={() => setShowPassword({
-                  ...showPassword,
-                  confirmPassword: !showPassword.confirmPassword
-                })}
+                onClick={() =>
+                  setShowPassword({
+                    ...showPassword,
+                    confirmPassword: !showPassword.confirmPassword,
+                  })
+                }
                 className="absolute inset-y-0 right-2 flex items-center px-2 mt-1 text-gray-400"
               >
                 {showPassword.confirmPassword ? "Hide" : "Show"}
@@ -156,4 +178,3 @@ export const CreateAccount = ({ onSwitchToSignIn }) => {
     </div>
   );
 };
-
