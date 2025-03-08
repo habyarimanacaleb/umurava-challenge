@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const ChallengeActions = ({ challengeId }) => {
+export const ChallengeActions = ({ challengeId }) => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
@@ -33,5 +33,3 @@ const ChallengeActions = ({ challengeId }) => {
     </div>
   );
 };
-
-export default ChallengeActions;

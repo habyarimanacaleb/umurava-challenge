@@ -22,10 +22,12 @@ const CreateNewChallenge = () => {
   });
   const [formError, setFormError] = useState("");
   const [imageFile, setImageFile] = useState(null);
+  // const [message, setMessage] = useState("");
 
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -33,6 +35,7 @@ const CreateNewChallenge = () => {
       [name]: value,
     }));
   };
+
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
   };
@@ -44,13 +47,13 @@ const CreateNewChallenge = () => {
       return;
     }
 
-    if (formData.projectDescription.length > 250) {
-      setFormError("Project Description should be within 250 characters.");
+    if (formData.projectDescription.length > 500) {
+      setFormError("Project Description should be within 500 characters.");
       return;
     }
 
-    if (formData.projectBrief.length > 50) {
-      setFormError("Project Brief should be within 50 characters.");
+    if (formData.projectBrief.length > 250) {
+      setFormError("Project Brief should be within 0 characters.");
       return;
     }
 
@@ -72,7 +75,7 @@ const CreateNewChallenge = () => {
 
     try {
       await axios.post(
-        "https://umurava-challenge-bn.onrender.com/api/challenges",
+        "https://umurava-challenge-bn.onrender.com/api/createBlog",
         formDataToSend,
         {
           headers: {
@@ -80,7 +83,7 @@ const CreateNewChallenge = () => {
           },
         }
       );
-      alert("Challenge created successfully");
+      console.log("Challenge created successfully");
       navigate("/admin-challenge");
     } catch (error) {
       console.error("Failed to create challenge", error);
@@ -99,6 +102,7 @@ const CreateNewChallenge = () => {
     });
     setImageFile(null);
   };
+
   return (
     <div className="flex" style={{ height: "100%" }}>
       <SideBar
@@ -266,7 +270,7 @@ const CreateNewChallenge = () => {
 
             <div className="form-field mt-4">
               <label className="pb-2" htmlFor="projectBrief">
-                Project Brief (Max 50 characters)
+                Project Brief (Max 500 characters)
               </label>
               <textarea
                 id="projectBrief"
@@ -313,7 +317,6 @@ const CreateNewChallenge = () => {
           </form>
         </div>
       </div>
-      {console.log(formData)}
     </div>
   );
 };

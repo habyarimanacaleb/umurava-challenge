@@ -7,6 +7,7 @@ import {
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AdminKeyInstructionsBox = ({ challengeId }) => {
   const navigate = useNavigate();
@@ -14,12 +15,9 @@ const AdminKeyInstructionsBox = ({ challengeId }) => {
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this challenge?")) {
       try {
-        const response = await fetch(`/api/deleteBlog/${challengeId}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) {
-          throw new Error("Failed to delete challenge");
-        }
+        await axios.delete(
+          `https://umurava-challenge-bn.onrender.com/api/deleteBlog/${challengeId}`
+        );
         console.log("Challenge deleted!");
         navigate("/admin");
       } catch (error) {
@@ -81,11 +79,7 @@ const AdminKeyInstructionsBox = ({ challengeId }) => {
           Delete
         </button>
         <button
-          onClick={() =>
-            challengeId
-              ? navigate(`/admin-edit-challenge/${challengeId}`)
-              : alert("Challenge ID is missing!")
-          }
+          onClick={() => navigate(`/admin-edit-challenge/${challengeId}`)}
           className="mt-6 w-full bg-blue-500 text-white text-sm py-2 rounded-lg hover:bg-blue-600 transition duration-300"
         >
           Edit
