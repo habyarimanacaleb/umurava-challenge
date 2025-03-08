@@ -26,8 +26,6 @@ const CreateNewChallenge = () => {
   const toggleSidebar = () => {
     setSidebarExpanded(!isSidebarExpanded);
   };
-
-  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -35,16 +33,12 @@ const CreateNewChallenge = () => {
       [name]: value,
     }));
   };
-
-  // Handle file input change
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
   };
 
   const handleCreateChallenge = async (e) => {
     e.preventDefault();
-
-    // Basic form validation
     if (formData.prize && isNaN(formData.prize)) {
       setFormError("Prize must be a valid number.");
       return;
@@ -92,8 +86,6 @@ const CreateNewChallenge = () => {
       console.error("Failed to create challenge", error);
       alert("Failed to create challenge");
     }
-
-    // Reset the form (if necessary)
     setFormData({
       imageUrl: "",
       title: "",
@@ -107,26 +99,21 @@ const CreateNewChallenge = () => {
     });
     setImageFile(null);
   };
-
   return (
     <div className="flex" style={{ height: "100%" }}>
-      {/* Sidebar */}
       <SideBar
         isSidebarExpanded={isSidebarExpanded}
         toggleSidebar={toggleSidebar}
       />
-
-      {/* Main Content */}
       <div className="flex-1 transition-all duration-300 bg-gray-200">
         <TopNavbar />
         <hr />
         <div className="flex px-4 py-2">
-          {/* Welcome Text */}
           <div className="back flex items-center space-x-2">
             <FontAwesomeIcon
               icon={faArrowLeft}
               className="bg-gray-300 p-2 rounded-md text-xs"
-              onClick={() => navigate("/admin")} // Navigate back to the admin page
+              onClick={() => navigate("/admin")}
             />
             <p
               onClick={() => {
@@ -292,7 +279,6 @@ const CreateNewChallenge = () => {
                 required
               />
             </div>
-
             <div className="form-field mt-4">
               <label className="pb-2" htmlFor="projectTasks">
                 Project Description & Tasks (Max 500 characters)
